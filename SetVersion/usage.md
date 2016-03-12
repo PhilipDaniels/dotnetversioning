@@ -8,9 +8,15 @@ SYNOPSIS
 ```
 dotnet-setversion.exe --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR 
                       --aivpat AIVPAT --aivcur AIVCUR \
-                      --read INFILE --write OUTFILE [av,afv,aiv|all] \
+                      --read INFILE --write OUTFILE \
+                      --what [av,afv,aiv|all] \
 					  --verbose
 ```
+
+Read file and print current attribute(s):       exe --read foo.dll --what all
+Eval pattern and print:                         exe --avpat {{UtcNow}} --what av
+Update file:                                    exe --write foo.cs --what all
+
 
 OPTIONS
 =======

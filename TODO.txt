@@ -20,5 +20,3 @@
   Also nuget2 only supports up to 20 characters in the last part.
   See http://blog.nuget.org/20140924/supporting-semver-2.0.0.html
 
-3. Merge getversion and setversion.
-

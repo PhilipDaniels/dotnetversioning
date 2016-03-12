@@ -77,9 +77,7 @@ namespace SetVersion.Lib.Tests
                     Expected = new SetVersionCommandLineArguments() { VersionInfo = new VersionInfo() { AVPat = "1.2.3" }, ErrorMessage = "Invalid argument combination" }
                 };
 
-                // And now for some valid settings.
-
-                // write with default what of "av".
+               // "No what".
                 yield return new InputData()
                 {
                     Args = new string[] { "--avpat", "1.2.3", "--avcur", "4.5.6", "--write", "foo.cs", "--read", "bar.cs" },
@@ -90,16 +88,17 @@ namespace SetVersion.Lib.Tests
                         VersionInfo = new VersionInfo()
                         {
                             AVPat = "1.2.3",
-                            AVCur = "4.5.6",
-                            WriteAV = true
-                        }
+                            AVCur = "4.5.6"
+                        },
+                        ErrorMessage = "Invalid argument combination"
                     }
                 };
 
+                // And now for some valid settings.
                 // Change order, specify what to write, turn on verbose.
                 yield return new InputData()
                 {
-                    Args = new string[] { "--avpat", "1.2.3", "--read", "bar.cs", "--avcur", "4.5.6", "--write", "foo.cs", "afv,aiv", "--verbose" },
+                    Args = new string[] { "--avpat", "1.2.3", "--read", "bar.cs", "--avcur", "4.5.6", "--write", "foo.cs", "--what", "afv,aiv", "--verbose" },
                     Expected = new SetVersionCommandLineArguments()
                     {
                         Infile = "bar.cs",
@@ -118,7 +117,7 @@ namespace SetVersion.Lib.Tests
                 // The full set. Use "all" for what to write.
                 yield return new InputData()
                 {
-                    Args = new string[] { "--avpat", "1.2.3", "--read", "bar.cs", "--avcur", "4.5.6", "--write", "foo.cs", "all", "--verbose",
+                    Args = new string[] { "--avpat", "1.2.3", "--read", "bar.cs", "--avcur", "4.5.6", "--write", "foo.cs", "--what", "all", "--verbose",
                         "--afvpat", "1.0.0", "--afvcur", "2.0.0",
                         "--aivpat", "3.0.0", "--aivcur", "4.0.0"
                     },

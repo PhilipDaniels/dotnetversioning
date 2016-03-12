@@ -114,8 +114,11 @@ namespace SetVersion.Lib
                         result.ErrorMessage = "No file specified for option --write";
                         return result;
                     }
-
-                    GetWhatToWrite(args, result.VersionInfo, ref i);
+                }
+                else if (IsArg("--what", arg))
+                {
+                    string what = GetArgValue(args, ++i);
+                    GetWhatToWrite(what, result.VersionInfo);
                 }
                 else
                 {
@@ -129,8 +132,7 @@ namespace SetVersion.Lib
 
             // TODO: Probably it is more complicated than this, depends on exactly
             // what you are trying to do.
-            bool valid = result.Outfile != null &&
-                           (result.VersionInfo.WriteAV || result.VersionInfo.WriteAFV || result.VersionInfo.WriteAIV) &&
+            bool valid = (result.VersionInfo.WriteAV || result.VersionInfo.WriteAFV || result.VersionInfo.WriteAIV) &&
                            (result.Infile != null ||
                                (
                                result.VersionInfo.AVPat != null || result.VersionInfo.AFVPat != null || result.VersionInfo.AIVPat != null
@@ -142,28 +144,17 @@ namespace SetVersion.Lib
             return result;
         }
 
-        private static void GetWhatToWrite(string[] args, VersionInfo versionInfo, ref int i)
+        private static void GetWhatToWrite(string arg, VersionInfo versionInfo)
         {
-            // i is currently pointing to the filename.
-
-            int next = i + 1;
-
-            if (next >= args.Length || args[next].StartsWith("--", StringComparison.OrdinalIgnoreCase))
+            if (arg != null)
             {
-                // There is no what.
+                versionInfo.WriteAV = arg.Contains("av") || arg.Contains("all");
+                versionInfo.WriteAIV = arg.Contains("aiv") || arg.Contains("all");
+                versionInfo.WriteAFV = arg.Contains("afv") || arg.Contains("all");
+            }
+
+            if (!versionInfo.WriteAV && !versionInfo.WriteAFV && !versionInfo.WriteAIV)
                 versionInfo.WriteAV = true;
-            }
-            else
-            {
-                i = next;
-                string what = GetArgValue(args, i);
-                if (what != null)
-                { 
-                    versionInfo.WriteAV = what.Contains("av") || what.Contains("all");
-                    versionInfo.WriteAIV = what.Contains("aiv") || what.Contains("all");
-                    versionInfo.WriteAFV = what.Contains("afv") || what.Contains("all");
-                }
-            }
         }
 
         /// <summary>
