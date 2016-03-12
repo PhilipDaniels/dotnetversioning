@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC5E4895-F122-4A8E-8F21-30C93E69FE55}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>dotnet_setversion.lib</RootNamespace>
+    <AssemblyName>dotnet-setversion.lib</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandLineParser.cs" />
+    <Compile Include="AssemblyFileProcessor.cs" />
+    <Compile Include="FSharpFileProcessor.cs" />
+    <Compile Include="VisualBasicFileProcessor.cs" />
+    <Compile Include="FileClassifier.cs" />
+    <Compile Include="FileProcessorBase.cs" />
+    <Compile Include="FileProcessorFactory.cs" />
+    <Compile Include="FileType.cs" />
+    <Compile Include="IFileProcessor.cs" />
+    <Compile Include="IFileSystem.cs" />
+    <Compile Include="IPatternApplier.cs" />
+    <Compile Include="ITimeProvider.cs" />
+    <Compile Include="IVariableResolver.cs" />
+    <Compile Include="CSharpFileProcessor.cs" />
+    <Compile Include="SourceCodeFileProcessor.cs" />
+    <Compile Include="JsonFileProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DefaultTimeProvider.cs" />
+    <Compile Include="PatternApplier.cs" />
+    <Compile Include="RealFileSystem.cs" />
+    <Compile Include="RegexExtensions.cs" />
+    <Compile Include="VariableResolver.cs" />
+    <Compile Include="VersionNumber.cs" />
+    <Compile Include="CommandLineArguments.cs" />
+    <Compile Include="VersionSetter.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

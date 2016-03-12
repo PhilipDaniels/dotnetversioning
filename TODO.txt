@@ -1,0 +1,24 @@
+1. .targets file and MSBuild/NuGet integration.
+
+2. How does dnx actually use the "version" in project.json? They default to "1.0.0-*"
+   what is the '*' for? If we set project.json's version to "1.2.3-pre"
+   we get 1.2.3-pre.nupkg and 1.2.3-pre.symbols.nupkg and:
+
+    [assembly: AssemblyFileVersion("1.2.3.0")]
+    [assembly: AssemblyInformationalVersion("1.2.3-pre")]
+    [assembly: AssemblyVersion("1.2.3.0")]
+
+  If we put "version": "1.2.3.4-pre99", we get
+  ClassLibrary1.1.2.3.4-pre99.nupkg (plus symbols) with
+
+    [assembly: AssemblyFileVersion("1.2.3.4")]
+    [assembly: AssemblyInformationalVersion("1.2.3.4-pre99")] << can be as long as required.
+    [assembly: AssemblyVersion("1.2.3.4")]
+
+  NuGet only supports semver, which means triplet fashion.
+  So the last is not possible.
+  Also nuget2 only supports up to 20 characters in the last part.
+  See http://blog.nuget.org/20140924/supporting-semver-2.0.0.html
+
+3. Merge getversion and setversion.
+
