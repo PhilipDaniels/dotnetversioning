@@ -9,11 +9,12 @@ PUSHD "%~dp0"
 
 REM We expect to be told where the finished assembly is, the name of nuspec file,
 REM amd the directory to drop packages in.
-SET ASSEMBLYFILE=%1
-SET NUSPEC=%2
-SET DROPDIR=%3
+SET CONFIG=%1
+SET ASSEMBLYFILE=%2
+SET NUSPEC=%3
+SET DROPDIR=%4
 
-IF "%DROPDIR%" == "" SET DROPDIR=%LOCAL_NUGET_FEED%
+IF "%DROPDIR%" == "" SET DROPDIR=%LOCAL_NUGET_DIR%
 IF "%DROPDIR%" == "" SET DROPDIR=%~dp0
 
 
@@ -31,18 +32,17 @@ SET /P AIV= < tmp.ver
 
 
 @ECHO ON
-nuget pack %NUSPEC% -Version %AIV% -Symbols -Verbosity detailed -OutputDirectory %DROPDIR%
-REM nuget pack %NUSPEC% -Version %AIV% -Symbols -Verbosity detailed -OutputDirectory %DROPDIR% -Properties Configuration=Release;Foo=Bar
+nuget pack %NUSPEC% -Version %AIV% -Symbols -Verbosity normal -OutputDirectory %DROPDIR% -Properties Configuration=%CONFIG%
 @ECHO OFF
 
-
+echo ------ Packing complete ------
 
 REM =====================================================================================================================
 REM =====================================================================================================================
 REM =====================================================================================================================
 
 
-REM Do we want to push? It is unnecessary to push to LOCAL_NUGET_FEED because we
+REM Do we want to push? It is unnecessary to push to LOCAL_NUGET_DIR because we
 REM have already dropped there. But if we are in CI, then we can push to the
 REM corporate MyGet server.
 SET bamboo.planRepository.branchName=TESTING
@@ -54,20 +54,25 @@ IF DEFINED bamboo.planRepository.branchName (
 
 	IF NOT "!FEED!" == "" (
 		IF EXIST !NUPKGFILE! (
+            ECHO Pushing !NUPKGFILE!
+
 			@ECHO ON
 			REM nuget push "!NUPKGFILE!" -Source "%FEED%"
-
 			@ECHO OFF
 		) ELSE (
 			ECHO The nupkg file !NUPKGFILE! does not exist.
 		)
 
 		IF EXIST !SYMBOLSFILE! (
+            ECHO Pushing !SYMBOLSFILE!
+
 			@ECHO ON
 			REM nuget push "!SYMBOLSFILE!" -Source "%FEED%"
 			@ECHO OFF
 		) ELSE (
 			ECHO The symbols file !SYMBOLSFILE! does not exist.
 		)
-	)
+	) ELSE (
+        ECHO FEED is not set, cannot push the nuget package.
+    )
 )
