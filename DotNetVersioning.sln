@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetVersion.Lib.Tests", "Set
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetVersion", "SetVersion\SetVersion.csproj", "{7941C36E-F366-434E-9BE4-5551399E73ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateNuGetDeps", "UpdateNuGetDeps\UpdateNuGetDeps.csproj", "{31406B2A-E696-4ADD-8648-2AE53ADC858B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7941C36E-F366-434E-9BE4-5551399E73ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7941C36E-F366-434E-9BE4-5551399E73ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7941C36E-F366-434E-9BE4-5551399E73ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31406B2A-E696-4ADD-8648-2AE53ADC858B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31406B2A-E696-4ADD-8648-2AE53ADC858B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31406B2A-E696-4ADD-8648-2AE53ADC858B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31406B2A-E696-4ADD-8648-2AE53ADC858B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
