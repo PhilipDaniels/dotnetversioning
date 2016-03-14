@@ -103,7 +103,9 @@
     <EmbeddedResource Include="Data\SVE.expected2" />
     <EmbeddedResource Include="Data\SVE.input1" />
     <EmbeddedResource Include="Data\SVE.expected1" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

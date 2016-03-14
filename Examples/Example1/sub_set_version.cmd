@@ -17,7 +17,7 @@ REM care about the Git info. On my machine, asking for the git info increases th
 REM from 45 msec to 245 msec, which could be significant if you have lots of projects.
 SET PATAV=%VER%
 SET PATAFV=%VER%
-SET PATAIV=%VER%-pre{{UtcNow:yyyyMMdd-HHmmss}}
+SET PATAIV=%VER%-pre{{UtcNow}}
 SET VERBOSE=--verbose
 
 

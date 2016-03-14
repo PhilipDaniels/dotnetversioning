@@ -20,3 +20,9 @@
   Also nuget2 only supports up to 20 characters in the last part.
   See http://blog.nuget.org/20140924/supporting-semver-2.0.0.html
 
+
+3. We do not want to create packages on every build because it slows down builds
+   and in most cases (e.g. unit testing) is not needed.
+4. For CLI:
+   * Cannot control all attributes
+   * Cannot easily run a pack from the command line

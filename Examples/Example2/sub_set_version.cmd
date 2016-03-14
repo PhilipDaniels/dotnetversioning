@@ -15,7 +15,7 @@ PUSHD "%~dp0"
 REM When building locally we want to do a quick "pre" build with a timestamp, and we don't really
 REM care about the Git info. On my machine, asking for the git info increases the execution time
 REM from 45 msec to 245 msec, which could be significant if you have lots of projects.
-SET PATAV=%VER%-pre{{UtcNow:yyyyMMdd-HHmmss}}
+SET PATAV=%VER%-pre{{UtcNow}}
 SET VERBOSE=--verbose
 
 
