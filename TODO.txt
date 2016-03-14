@@ -26,3 +26,9 @@
 4. For CLI:
    * Cannot control all attributes
    * Cannot easily run a pack from the command line
+
+Example1 - build packages in traditional .Net project.
+Example2 - same but in new project.json
+Example3 - build a set of related projects in one solution with one
+  AssemblyInfo.ver.cs and link the projects by NuGet.
+
