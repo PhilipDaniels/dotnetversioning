@@ -8,12 +8,15 @@ SET CONFIG=%1
 IF "%CONFIG%" == "" SET CONFIG=Release
 
 REM We only pack builds that were made in Release mode.
-FOR %%P IN (Car.Components Car) DO (
+FOR %%P IN (Computer.MainUnit.Components Computer.MainUnit Computer) DO (
 	SET ASSEMBLYFILE=%%P\bin\%CONFIG%\%%P.dll
 	SET NUSPEC=%%P\%%P.nuspec
+	SET PKGS=%%P\packages.config
 	SET DROPDIR=
 
+	updeps.exe !NUSPEC! !PKGS!
+
 	@ECHO ON
-	CALL sub_pack_and_push.cmd %CONFIG% !ASSEMBLYFILE! !NUSPEC! !DROPDIR! 
+	REM CALL sub_pack_and_push.cmd %CONFIG% !ASSEMBLYFILE! !NUSPEC! !DROPDIR! 
 	@ECHO OFF
 )

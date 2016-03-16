@@ -48,6 +48,9 @@
     <Compile Include="PowerSupply.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Computer.MainUnit.Components.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)\set_versions.cmd</PreBuildEvent>

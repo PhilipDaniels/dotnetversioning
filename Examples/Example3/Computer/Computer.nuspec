@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Computer</id>
+    <version>0.0.0</version>
+    <title>Computer</title>
+    <authors>Philip Daniels</authors>
+    <owners>Philip Daniels</owners>
+    <projectUrl>http://example.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An example project.</description>
+    <releaseNotes>Not yet ready for the wild.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags></tags>
+  </metadata>
+  <files>
+    <!-- Files are relative to the nuspec file. -->
+    <file src="bin\$configuration$\Computer.dll" target="lib\Net45\Computer.dll" />
+    <file src="**\*.cs" target="src" exclude="bin\**\*.cs;obj\**\*.cs" />
+  </files>
+</package>
