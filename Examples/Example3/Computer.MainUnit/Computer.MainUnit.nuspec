@@ -13,13 +13,13 @@
     <copyright>Copyright 2016</copyright>
     <tags>
     </tags>
+    <dependencies>
+      <dependency id="Computer.MainUnit.Components" version="2.1.0-pre160316-212210" />
+    </dependencies>
   </metadata>
   <files>
     <!-- Files are relative to the nuspec file. -->
     <file src="bin\$configuration$\Computer.MainUnit.dll" target="lib\Net45\Computer.MainUnit.dll" />
     <file src="**\*.cs" target="src" exclude="bin\**\*.cs;obj\**\*.cs" />
   </files>
-  <dependencies>
-    <dependency id="Computer.MainUnit.Components" version="2.1.0-pre160314-121011" />
-  </dependencies>
 </package>

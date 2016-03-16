@@ -7,16 +7,14 @@ PUSHD "%~dp0"
 SET CONFIG=%1
 IF "%CONFIG%" == "" SET CONFIG=Release
 
+
 REM We only pack builds that were made in Release mode.
 FOR %%P IN (Computer.MainUnit.Components Computer.MainUnit Computer) DO (
 	SET ASSEMBLYFILE=%%P\bin\%CONFIG%\%%P.dll
 	SET NUSPEC=%%P\%%P.nuspec
-	SET PKGS=%%P\packages.config
 	SET DROPDIR=
 
-	updeps.exe !NUSPEC! !PKGS!
-
 	@ECHO ON
-	REM CALL sub_pack_and_push.cmd %CONFIG% !ASSEMBLYFILE! !NUSPEC! !DROPDIR! 
+	CALL sub_pack_and_push.cmd %CONFIG% !ASSEMBLYFILE! !NUSPEC! !DROPDIR! 
 	@ECHO OFF
 )

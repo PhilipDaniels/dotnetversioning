@@ -15,6 +15,10 @@ FOR %%i IN ("%file%") DO (
 REM Exit script without closing the command window.
 EXIT /b
 
+
+REM Recursive find files. %%f is set to the full path.
+FOR /R %%F IN (*.nuspec) DO ( ... )
+
 REM Determine name of the latest package.
 for /f "delims=|" %%i in ('dir "%PKGDIR%\*.nupkg" /B /O:-D') do set RECENT=%%i
 set RECENT=%RECENT:.symbols.nupkg=%

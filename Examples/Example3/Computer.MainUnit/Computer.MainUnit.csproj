@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Computer.MainUnit.Components, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Computer.MainUnit.Components.2.1.0-pre160314-121011\lib\Net45\Computer.MainUnit.Components.dll</HintPath>
+      <HintPath>..\packages\Computer.MainUnit.Components.2.1.0-pre160316-212210\lib\Net45\Computer.MainUnit.Components.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

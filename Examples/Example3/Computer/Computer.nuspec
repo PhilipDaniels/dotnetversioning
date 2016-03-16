@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <package>
   <metadata>
     <id>Computer</id>
@@ -11,7 +11,12 @@
     <description>An example project.</description>
     <releaseNotes>Not yet ready for the wild.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags></tags>
+    <tags>
+    </tags>
+    <dependencies>
+      <dependency id="Computer.MainUnit" version="2.1.0-pre160316-212210" />
+      <dependency id="Computer.MainUnit.Components" version="2.1.0-pre160316-212210" />
+    </dependencies>
   </metadata>
   <files>
     <!-- Files are relative to the nuspec file. -->

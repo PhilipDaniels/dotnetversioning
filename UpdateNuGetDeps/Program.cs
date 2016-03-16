@@ -55,11 +55,11 @@ namespace UpdateNuGetDeps
             var nuSpecDoc = new XmlDocument();
             nuSpecDoc.Load(nuSpecFile);
 
-            var dependenciesNode = nuSpecDoc.SelectSingleNode("package/dependencies");
+            var dependenciesNode = nuSpecDoc.SelectSingleNode("package/metadata/dependencies");
             if (dependenciesNode == null)
             {
                 dependenciesNode = nuSpecDoc.CreateElement("dependencies");
-                var packageNode = nuSpecDoc.SelectSingleNode("package");
+                var packageNode = nuSpecDoc.SelectSingleNode("package/metadata");
                 packageNode.AppendChild(dependenciesNode);
             }
 
