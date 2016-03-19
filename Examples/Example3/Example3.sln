@@ -12,10 +12,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BDA44669-2A4E-4819-ACAB-57D0556F5B84}"
 	ProjectSection(SolutionItems) = preProject
 		pack_and_push.cmd = pack_and_push.cmd
+		pp.ps1 = pp.ps1
 		set_versions.cmd = set_versions.cmd
+		setver.ps1 = setver.ps1
 		sub_pack_and_push.cmd = sub_pack_and_push.cmd
 		sub_set_version.cmd = sub_set_version.cmd
-		update_deps.cmd = update_deps.cmd
 	EndProjectSection
 EndProject
 Global

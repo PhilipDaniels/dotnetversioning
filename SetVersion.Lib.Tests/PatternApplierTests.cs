@@ -78,6 +78,8 @@ namespace SetVersion.Lib.Tests
         [InlineData("1.2.3-{{Now:HH:mm}}", "", "1.2.3-15:16")]
         [InlineData("1.2.3-{{Now:D}}", "", "1.2.3-Thursday, 04 August 2011")]
         [InlineData("1.2.3-{{UtcNow:HH:mm}}", "", "1.2.3-23:22")]
+        [InlineData("1.2.3-{{UtcNow:yyyy-MM-dd HH:mm}}", "", "1.2.3-2015-11-03 23:22")]
+        [InlineData("{{UtcNow:yyyy-MM-dd HH:mm:ss}}", "", "2015-11-03 23:22:21")]
         [InlineData("1.2.3-pre-{{UtcNow:D}}", "", "1.2.3-pre-Tuesday, 03 November 2015")]
         [InlineData("{{GitBranch}}", "", "fakemaster")]
         [InlineData("{{GitCommit}}", "", "1234567890abcdef")]
