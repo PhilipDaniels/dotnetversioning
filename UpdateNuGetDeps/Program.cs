@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 
 namespace UpdateNuGetDeps
@@ -12,22 +14,58 @@ namespace UpdateNuGetDeps
             if (args == null || args.Length == 0 || args[0] == "--help" || args[0] == "?" || args[0] == "-h")
                 ShowHelpAndExit();
 
-            string nuSpecFile = args[0];
-            if (!File.Exists(nuSpecFile))
+            var sw = new Stopwatch();
+            sw.Start();
+
+            int numUpdated = 0;
+            if (args[0] == "-r")
             {
-                Console.WriteLine("Error: nuspec file " + nuSpecFile + " does not exist.");
+                // Find an update everything. The best and easiest way!
+                var nuspecs = Directory.GetFiles(Environment.CurrentDirectory, "*.nuspec", SearchOption.AllDirectories);
+                foreach (var nuspec in nuspecs)
+                    numUpdated += UpdateNuspec(nuspec, GetCorrespondingPackagesFile(nuspec));
+            }
+            else
+            {
+                // We expect a nuspec, with an optional packages file.
+                string nuspec = args[0];
+                string packagesFile = args.Length == 2 ? args[1] : GetCorrespondingPackagesFile(nuspec);
+                numUpdated += UpdateNuspec(nuspec, packagesFile);
+            }
+
+            sw.Stop();
+            Console.WriteLine("{0}: {1} nuspec files updated in {2} msec.", ExeName, numUpdated, sw.ElapsedMilliseconds);
+        }
+
+        private static string ExeName
+        {
+            get
+            {
+                return Assembly.GetEntryAssembly().ManifestModule.Name;
+            }
+        }
+
+        private static string GetCorrespondingPackagesFile(string nuspecFile)
+        {
+            string d = Path.GetDirectoryName(nuspecFile);
+            return Path.Combine(d, "packages.config");
+        }
+
+        private static int UpdateNuspec(string nuspecFile, string packagesFile)
+        {
+            if (!File.Exists(nuspecFile))
+            {
+                Console.WriteLine("Error: nuspec file " + nuspecFile + " does not exist.");
                 Environment.Exit(1);
             }
 
-            string packagesFile = args[1];
+            // Allow this, you can be packaging and not have any dependencies.
             if (!File.Exists(packagesFile))
-            {
-                Console.WriteLine("Error: packages.config file " + packagesFile + " does not exist.");
-                Environment.Exit(1);
-            }
+                return 0;
 
             var packages = GetPackages(packagesFile);
-            UpdateNuSpecFile(nuSpecFile, packages);
+            UpdateNuspecFile(nuspecFile, packages);
+            return 1;
         }
 
         private static List<Package> GetPackages(string packagesFile)
@@ -47,13 +85,13 @@ namespace UpdateNuGetDeps
             return result;
         }
 
-        private static void UpdateNuSpecFile(string nuSpecFile, List<Package> packages)
+        private static void UpdateNuspecFile(string nuspecFile, List<Package> packages)
         {
             if (packages == null || packages.Count == 0)
                 return;
 
             var nuSpecDoc = new XmlDocument();
-            nuSpecDoc.Load(nuSpecFile);
+            nuSpecDoc.Load(nuspecFile);
 
             var dependenciesNode = nuSpecDoc.SelectSingleNode("package/metadata/dependencies");
             if (dependenciesNode == null)
@@ -79,15 +117,36 @@ namespace UpdateNuGetDeps
                 dependenciesNode.AppendChild(dependencyNode);
             }
 
-            nuSpecDoc.Save(nuSpecFile);
+            nuSpecDoc.Save(nuspecFile);
+            Console.WriteLine("{0}: {1} updated", ExeName, nuspecFile);
         }
 
         private static void ShowHelpAndExit()
         {
-            Console.WriteLine("UpdateNuGetDeps.exe NUSPECFILE PACKAGESFILE");
-            Console.WriteLine("--");
-            Console.WriteLine("Updates the <dependencies> node in NUSPECFILE to include all the");
-            Console.WriteLine("nuget packages you are using, as determined by scanning PACKAGESFILE.");
+
+            Console.WriteLine(@"{0} - update <dependencies> in a nuspec file.
+
+USAGE
+    {0}: -r | NUSPECFILE [PACKAGESFILE]
+
+DESCRIPTION
+Updates the <dependencies> node in a nuspec file with a list of dependent packages,
+determined by scanning the corresponding packages.config file.
+
+If -r is specified, the program finds all nuspec files under the current working
+directory and updates them if they have a corresponding packages.config file in the
+same directory. This is the recommended usage.
+
+If NUSPECFILE is specified then only that file is updated. If PACKAGESFILE is
+specified then it is used, otherwise packages.config is assumed to be in the same
+directory as the NUSPECFILE.
+
+In all usages, if the packages.config file does not exist then no action is taken
+and no error is reported. An error is reported if NUSPECFILE does not exist.
+",
+ExeName
+);
+
             Environment.Exit(1);
         }
     }

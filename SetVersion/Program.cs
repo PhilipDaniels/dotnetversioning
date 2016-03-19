@@ -34,14 +34,21 @@ namespace SetVersion
             engine.Execute(parsedArgs);
 
             sw.Stop();
-            string exe = Assembly.GetEntryAssembly().ManifestModule.Name;
-            Logger.Log("{0}: completed in {1} msec.", exe, sw.ElapsedMilliseconds);
+            Logger.Log("{0}: completed in {1} msec.", ExeName, sw.ElapsedMilliseconds);
         }
 
         private static void ShowMiniHelp(SetVersionCommandLineArguments parsedArgs)
         {
             Console.WriteLine("Error: " + parsedArgs.ErrorMessage);
             Console.WriteLine("Try --help to see the full help.");
+        }
+
+        private static string ExeName
+        {
+            get
+            {
+                return Assembly.GetEntryAssembly().ManifestModule.Name;
+            }
         }
     }
 }
