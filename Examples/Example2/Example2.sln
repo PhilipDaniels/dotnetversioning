@@ -9,10 +9,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Car", "Car\Car.xproj", "{00
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B47E986-DA2E-40CE-A379-93A2591BD243}"
 	ProjectSection(SolutionItems) = preProject
-		pack_and_push.cmd = pack_and_push.cmd
-		set_versions.cmd = set_versions.cmd
-		sub_pack_and_push.cmd = sub_pack_and_push.cmd
-		sub_set_version.cmd = sub_set_version.cmd
+		pack_and_push.ps1 = pack_and_push.ps1
+		setver.ps1 = setver.ps1
 	EndProjectSection
 EndProject
 Global

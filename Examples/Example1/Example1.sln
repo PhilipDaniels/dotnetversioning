@@ -12,10 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car", "Car\Car.csproj", "{D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0720A100-1D97-45A8-B418-BE40AE705BFB}"
 	ProjectSection(SolutionItems) = preProject
-		pack_and_push.cmd = pack_and_push.cmd
-		set_versions.cmd = set_versions.cmd
-		sub_pack_and_push.cmd = sub_pack_and_push.cmd
-		sub_set_version.cmd = sub_set_version.cmd
+		pack_and_push.ps1 = pack_and_push.ps1
+		setver.ps1 = setver.ps1
 	EndProjectSection
 EndProject
 Global

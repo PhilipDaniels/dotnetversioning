@@ -1,12 +1,12 @@
-# Pack-and-push in PowerShell.
+# Runs 'NuGet pack' for all nuspecs found under this directory, placing the created
+# packages into $dropDir (you should define an environment variable called LOCAL_NUGET_DIR
+# to be your drop folder, then set it up as a feed in NuGet).
 
-
-# -------------------------------------------------------------------------------
 # We only pack builds that were made in Release mode.
 $config = 'Release'
 
 # What to pack.
-$projects = 'Computer.MainUnit.Components', 'Computer.MainUnit', 'Computer'
+$nuspecs = (Get-ChildItem -Path "*.nuspec" -Recurse)
 
 # Where to drop the nupkg files.
 $dropDir = $env:LOCAL_NUGET_DIR
@@ -15,30 +15,29 @@ if (!($dropDir))
 	$dropDir = $PSScriptRoot
 }
 
-# -------------------------------------------------------------------------------
 
-# Ensure all <dependencies> are up to date.
+# -------------------------------------------------------------------------------
+# You should not need to edit anything below here.
+
+
+# Ensure all <dependencies> in nuspec files are up to date.
 updeps -r
 
 
-foreach ($project in $projects)
+foreach ($nuspec in $nuspecs)
 {
-	Write-Host "Packing $project..."
+	Write-Host "Packing $nuspec..."
 
-	$asm = "$project\bin\$config\$project.dll"
+	# This works if we are following the usual conventions.
+	$projectDir = Split-Path $nuspec -Parent
+	$project = (Split-Path $nuspec -Leaf).Replace('.nuspec', '')
+	$asm = "$projectDir\bin\$config\$project.dll"
 	if (!(Test-Path $asm))
 	{
 		Write-Host "The output assembly $asm does not exist."
 		Exit 1
 	}
 	
-	$nuspec = (Get-ChildItem "$project\*.nuspec")
-	if ($nuspec -eq $null)
-	{
-		Write-Host "nuspec file not found for $project"
-		Exit 1
-	}
-
 	# Get the version from the built assembly. We want the "pre" bit from AIV,
 	# but get rid of the reset of the message - commit shas etc.
 	$ver = dnv --read $asm --what aiv
@@ -76,4 +75,3 @@ foreach ($project in $projects)
 		}
 	}
 }
-

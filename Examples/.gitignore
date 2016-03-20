@@ -2,7 +2,6 @@
 # Since they contain a timestamp, there would be a lot of VCS churn
 # if we checked them in (and since we are generating them, there is no
 # NEED to check them in).
+
 AssemblyInfo.ver.cs
 
-# Temporary file created by one of the batch files.
-tmp.ver
