@@ -57,3 +57,17 @@ REM See http://stackoverflow.com/questions/2323292/windows-batch-assign-output-o
 REM for /f "delims=" %%i in ('%GITEXE% symbolic-ref --short head') do set BRANCH=%%i
 REM for /f "delims=" %%i in ('%GITEXE% rev-parse --short^=12 head') do set COMMIT=%%i
 
+
+
+Powershell
+===================================================================================================================
+$args = @("--avpat", $av, "--afvpat", $afv, "--aivpat", $aiv, "--write", "AssemblyInfo.ver.cs", "--what", "all")
+#Write-Host "dnv.exe $args"
+#& dnv.exe $args
+
+EXEs
+====
+echoargs
+dnv
+updeps
+

@@ -1,11 +1,12 @@
 # Pack-and-push in PowerShell.
 
+
 # -------------------------------------------------------------------------------
 # We only pack builds that were made in Release mode.
 $config = 'Release'
 
 # What to pack.
-$projects = 'Computer.MainUnit.Components', 'Computer.MainUnit',  'Computer'
+$projects = 'Computer.MainUnit.Components', 'Computer.MainUnit', 'Computer'
 
 # Where to drop the nupkg files.
 $dropDir = $env:LOCAL_NUGET_DIR
@@ -16,6 +17,8 @@ if (!($dropDir))
 
 # -------------------------------------------------------------------------------
 
+# Ensure all <dependencies> are up to date.
+updeps -r
 
 
 foreach ($project in $projects)
@@ -38,7 +41,7 @@ foreach ($project in $projects)
 
 	# Get the version from the built assembly. We want the "pre" bit from AIV,
 	# but get rid of the reset of the message - commit shas etc.
-	$ver = dnv.exe --read $asm --what aiv
+	$ver = dnv --read $asm --what aiv
 	$ver = $ver.substring(0, $ver.indexof(','))
 	
 	# Pack and drop directly into the destination folder.

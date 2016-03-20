@@ -14,8 +14,8 @@
     <tags>
     </tags>
     <dependencies>
-      <dependency id="Computer.MainUnit" version="2.1.0-pre160316-212210" />
-      <dependency id="Computer.MainUnit.Components" version="2.1.0-pre160316-212210" />
+      <dependency id="Computer.MainUnit" version="2.1.0-pre160320-125822" />
+      <dependency id="Computer.MainUnit.Components" version="2.1.0-pre160320-125822" />
     </dependencies>
   </metadata>
   <files>
