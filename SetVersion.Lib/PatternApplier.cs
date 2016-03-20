@@ -52,6 +52,7 @@ namespace SetVersion.Lib
             Val.ThrowIfNull(versionPattern, nameof(versionPattern));
 
             currentVersion = currentVersion ?? "";
+
             var vnPattern = new VersionString(versionPattern);
             var vnCurrent = new VersionString(currentVersion);
 
@@ -66,7 +67,6 @@ namespace SetVersion.Lib
             vnCurrent.Minor = EvaluatePattern(vnPattern.Minor, vnCurrent.Minor);
             vnCurrent.Revision = EvaluatePattern(vnPattern.Revision, vnCurrent.Revision);
             vnCurrent.Build = EvaluatePattern(vnPattern.Build, vnCurrent.Build);
-            vnCurrent.Suffix = EvaluatePattern(vnPattern.Suffix, vnCurrent.Suffix);
         }
 
         private string EvaluatePattern(string pattern, string currentValue)

@@ -5,32 +5,13 @@ namespace SetVersion.Lib
 {
     /// <summary>
     /// Represents a version number string, such as "1.2.3-pre" or "1.2.3.4-pre".
-    /// The full format is "MAJOR.MINOR.REVISION.BUILD-SUFFIX."
+    /// The full format is "MAJOR.MINOR.REVISION.BUILD"
     /// Note that this class is also used to parse patterns, so the components
     /// can be variables such as "{{Inc}}".
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public class VersionString
     {
-        /*
-        private static Regex threePart = new Regex("", RegexOptions.Compiled);
-        private static Regex fourPart = new Regex
-            (
-              @"(?<major>\S+?)\."             // MAJOR.
-            + @"(?<minor>\S+?)"               // MINOR.
-                                              // Then we basically have nothing (so that "1.2" is considered valid) or one of:
-                                              //   .REV  |   .REV-SUFFIX   |   .REV.BUILD   |    .REV.BUILD-SUFFIX
-                                              // which is basically REV-SUFFIX with an optional BUILD in the middle
-            + @"(\."                          // Start an optional group, which must start with a "."
-                + @"(?<revision>\S+?)"        // and must have a REVISION number
-                + @"(\.(?<build>\S+?))?"      // but a BUILD number is optional.
-                + @"(-(?<suffix>\S*))?"        // as is the SUFFIX.
-            + @")?",                          // Finish that optional group.
-              
-              RegexOptions.Compiled
-            );
-        */
-
         /// <summary>
         /// Initializes a new instance of the <see cref="VersionString"/> class.
         /// </summary>
@@ -40,7 +21,19 @@ namespace SetVersion.Lib
         {
             Val.ThrowIfNull(versionNumber, nameof(versionNumber));
 
-            AlternativeParse(versionNumber);
+            int idx = 0;
+            Major = Eat(versionNumber, ref idx);
+            if (Major == null)
+            {
+                Major = "";
+                return;
+            }
+
+            Minor = Eat(versionNumber, ref idx);
+            Revision = Eat(versionNumber, ref idx);
+            // Consume the remainder.
+            if (idx < versionNumber.Length)
+                Build = versionNumber.Substring(idx);
         }
 
         /// <summary>
@@ -72,22 +65,12 @@ namespace SetVersion.Lib
 
         /// <summary>
         /// Represents the Build component of the version string.
-        /// For example, in the string "1.2.3.4-pre" Build is "4".
+        /// For example, in the string "1.2.3.4-pre" Build is "4-pre".
         /// </summary>
         /// <value>
         /// The Build component of the version string.
         /// </value>
         public string Build { get; set; }
-
-        /// <summary>
-        /// Represents the Suffix component of the version string.
-        /// For example, in the string "1.2.3-pre" or "1.2.3.4-pre" Suffix is "pre".
-        /// The Suffix is everything after the first "-", if any.
-        /// </summary>
-        /// <value>
-        /// The Suffix component of the version string.
-        /// </value>
-        public string Suffix { get; set; }
 
         /// <summary>
         /// The full version number.
@@ -104,48 +87,8 @@ namespace SetVersion.Lib
                 s += "." + Revision;
             if (Build != null)
                 s += "." + Build;
-            if (Suffix != null)
-                s += "-" + Suffix;
 
             return s;
-        }
-
-        private void AlternativeParse(string versionNumber)
-        {
-            int idx = 0;
-            Major = Eat(versionNumber, ref idx);
-            if (Major == null)
-            {
-                Major = "";
-                return;
-            }
-
-            Minor = Eat(versionNumber, ref idx);
-            Revision = Eat(versionNumber, ref idx);
-
-            // In a three part number, Revision may contain the '-'. This signifies there is no BUILD number.
-            if (Revision != null)
-            {
-                if (Revision.Contains("-"))
-                {
-                    string p1, p2;
-                    StringExtensions.SplitOnFirst(Revision, '-', out p1, out p2);
-                    Revision = p1;
-                    Build = null;
-                    Suffix = p2;
-                }
-                else
-                {
-                    if (idx < versionNumber.Length)
-                    {
-                        string remainder = versionNumber.Substring(idx);
-                        string p1, p2;
-                        StringExtensions.SplitOnFirst(remainder, '-', out p1, out p2);
-                        Build = p1;
-                        Suffix = p2;
-                    }
-                }
-            }
         }
 
         private string Eat(string versionNumber, ref int startIdx)
