@@ -149,17 +149,17 @@ the desired data then use dnv to write it into the assembly attributes.
 VARIABLE EXAMPLES
 =================
 
-| Current  | Pattern | New | Notes |
-| -------  | ------- | --- | ----- |
-| 1.0.0.0  | 1.2.3.4                          | 1.2.3.4                 | no variables, pattern is taken literally |
-| 1.10.0.1 | 1.{{Inc}}.0.{{Inc}}              | 1.11.0.2                | multiple Incs are ok. |
-| 1.10.0   | 1.0.%%Ver%%                      | 1.0.32                  | assuming the environment variable has the value "32" |
-| 1.10.0   | %%Ver%%                          | 2.0.7                   | assuming the environment variable has the value "2.0.7" |
-| 1.10.0   | ##c:\tenp\ver.txt##              | 5.6.7                   | assuming the file has the value "5.6.7" on its first line |
-| 1.10.0   | %%Major%%.##Minor.txt##.{{Inc}}  | 3.17.1                  | combos are acceptable |
-| 1.10.0   | 1.10.0-pre{{UtcNow}}             | 1.10.0-pre160320-173022 | good for monotonic build numbers |
-| 1.12.0   | 1.{{Same}}.7                     | 1.12.7                  | no-op example |
-| 1.0.0    | 1.{{UtcNowDOY}}.{{UtcNow:HHmm}}  | 1.15209.1632            | one approach to encoding the date and time |
+| Current  | Pattern                          | New Version             | Notes                                                     |
+| -------  | -------------------------------- | ----------------------- | --------------------------------------------------------- |
+| 1.0.0.0  | 1.2.3.4                          | 1.2.3.4                 | no variables, pattern is taken literally                  |
+| 1.10.0.1 | 1.{{Inc}}.0.{{Inc}}              | 1.11.0.2                | multiple Incs are ok.                                     |
+| 1.10.0   | 1.0.%%Ver%%                      | 1.0.32                  | assuming the environment variable has the value "32"      |
+| 1.10.0   | %%Ver%%                          | 2.0.7                   | assuming the environment variable has the value "2.0.7"   |
+| 1.10.0   | ##c:\temp\ver.txt##              | 5.6.7                   | assuming the file has the value "5.6.7" on its first line |
+| 1.10.0   | %%Major%%.##Minor.txt##.{{Inc}}  | 3.17.1                  | combos are acceptable                                     |
+| 1.10.0   | 1.10.0-pre{{UtcNow}}             | 1.10.0-pre160320-173022 | good for monotonic build numbers                          |
+| 1.12.0   | 1.{{Same}}.7                     | 1.12.7                  | no-op example                                             |
+| 1.0.0    | 1.{{UtcNowDOY}}.{{UtcNow:HHmm}}  | 1.15209.1632            | one approach to encoding the date and time                |
 
 Note that the minor and revision numbers may not exceed 2^16 - 1, or 65535. This precludes using a
 format such as YYYYMMDD, and even YYMMDD won't work, but the date DOY serial numbers will fit, and
