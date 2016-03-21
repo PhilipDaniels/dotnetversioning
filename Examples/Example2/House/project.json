@@ -1,13 +1,12 @@
 {
-  "version": "1.0.7-pre160320-171250",
-  "description": "Car.Components Class Library",
+  "version": "1.0.7-pre160321-201338",
+  "description": "House Class Library",
   "authors": [ "Phil" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
 
   "frameworks": {
-    "net451": {
-    }
+    "net451": { }
   }
 }

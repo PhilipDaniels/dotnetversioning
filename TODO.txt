@@ -24,13 +24,12 @@
 3. We do not want to create packages on every build because it slows down builds
    and in most cases (e.g. unit testing) is not needed.
 
-4. For CLI:
-   * Cannot control all attributes
 
-Example1 - build packages in traditional .Net project.
-Example2 - same but in new project.json
+Example1 - build independent packages in traditional .Net project.
+
+Example2 - same idea, but in new project.json
+
 Example3 - build a set of related projects in one solution with one
   AssemblyInfo.ver.cs and link the projects by NuGet.
 
 
-Change the name of example2 so that all generated packages are unique.
