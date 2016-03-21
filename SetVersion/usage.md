@@ -12,11 +12,11 @@ dotnet-setversion.exe --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --af
 					  
 ```
 
-```
-Read file and print current attribute(s):       dnv --read foo.dll --what all
-Eval pattern and print:                         dnv --avpat {{UtcNow}} --what av
-Update file:                                    dnv --write foo.cs --what all
-```
+TYPICAL USAGE
+=============
+Read file and print current attribute(s):  `dnv --read foo.dll --what all`
+Eval pattern and print:                    `dnv --avpat "{{UtcNow}}" --what av`
+Update file:                               `dnv (patterns) --write foo.cs --what all`
 
 OPTIONS
 =======
