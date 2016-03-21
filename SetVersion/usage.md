@@ -6,10 +6,8 @@ then write it to a file.
 SYNOPSIS
 ========
 ```
-dotnet-setversion.exe --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR \
-                      --aivpat AIVPAT --aivcur AIVCUR --read INFILE \
-                      --write OUTFILE --what [av,afv,aiv|all]
-					  
+dnv --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR \
+    --aivpat AIVPAT --aivcur AIVCUR --read INFILE --write OUTFILE --what [av,afv,aiv|all]			  
 ```
 
 COMMON USE CASES
@@ -220,7 +218,7 @@ GUIDELINES
 
 * Don't set version numbers or pack on every build because it slows things down. Instead,
   create some PowerShell scripts to do this and run them manually from the Package Manager
-  Console as and when required (see Examples on github).
+  Console as and when required (see Examples in the repo for this project).
 
 * Each developer should create a directory on their machine to act as a drop directory
   for nupkg files and as a NuGet feed. This allows developers to build packages locally
@@ -245,4 +243,5 @@ SEE ALSO
 * Project.json - https://github.com/aspnet/Home/wiki/Project.json-file
 * Semantic versioning (SEMVER) - http://semver.org/
 * Assembly attributes: http://stackoverflow.com/questions/64602/
+* Project Home on Github: https://github.com/PhilipDaniels/dotnetversioning
 
