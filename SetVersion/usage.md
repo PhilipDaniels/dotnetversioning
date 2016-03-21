@@ -1,6 +1,6 @@
 ﻿NAME
 ====
-dotnet-setversion - create a new version number based on an existing version number and a pattern,
+dnv - create a new version number based on an existing version number and a pattern,
 then write it to a file.
 
 SYNOPSIS
