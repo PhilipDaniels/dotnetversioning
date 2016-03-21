@@ -162,7 +162,7 @@ VARIABLE EXAMPLES
 | 1.0.0    | 1.{{UtcNowDOY}}.{{UtcNow:HHmm}}  | 1.15209.1632            | one approach to encoding the date and time                |
 
 Note that the minor and revision numbers may not exceed 2^16 - 1, or 65535. This precludes using a
-format such as YYYYMMDD, and even YYMMDD won't work, but the date DOY serial numbers will fit, and
+format such as `YYYYMMDD`, and even `YYMMDD` won't work, but the date `DOY` serial numbers will fit, and
 the nth day of the year is trivial to discover using Google.
 
 THE ASSEMBLY ATTRIBUTES
@@ -189,10 +189,8 @@ GUIDELINES
   standards. Do not set them based on CI build numbers because this will make it difficult to
   inter-operate with local builds (see "Eliminating the NuGet Shuffle" below).
 
-* For legacy .Net projects, use AssemblyInformationalVersion to provide traceability back to
-  the exact set of code used to build the project. For project.json projects, you achieve the
-  same thing simply by using a longer version string such as
-  "1.2.3-pre20160320173022-commit-12aa63-master".
+* Use AssemblyInformationalVersion to provide traceability back to the exact set of code used
+  to build the project.
 
 * Pre-release builds should use a "-pre{{UtcNow}}" or similar suffix.
 
@@ -200,32 +198,34 @@ GUIDELINES
 
 * A pre-release build is anything not built on the master branch.
 
-* For legacy .Net projects, create a separate AssemblyInfo.gen.cs file with the
-  following contents
-  
+* For legacy .Net projects, create a separate AssemblyInfo.ver.cs file with the
+  following contents:
+  ```
   [assembly: AssemblyVersion("1.0.0")]
   [assembly: AssemblyFileVersion("1.0.0")]
   [assembly: AssemblyInformationalVersion("1.0.0")]
+  ```
+* For project.json projects, you will also need to create AssemblyInfo.ver.cs but it should
+  only contain the AssemblyInformationalVersion attribute as the other two are controlled
+  via the "version" tag in project.json:
 
-* For both legacy and project.json builds, use the MSBuild PreBuild event to run a script which
-  sets the version number. This event still works in new dotnet/cli projects, but you will need
-  to edit the .xproj file manually. Pass the build configuration to the script, as well as any
-  other information you may need. Example:
+  ```
+  [assembly: AssemblyInformationalVersion("1.0.0")]
+   ```
 
-  <Target Name="BeforeBuild">
-    <Exec Command="set_version.cmd $(Configuration)" WorkingDirectory="$(SolutionDir)\scripts" />
-  </Target>
+* Don't check in AssemblyInfo.ver.cs, exclude it from your VCS.
 
-  The home repository for dotnet-setversion contains a complete worked example.
-  
-* If building several projects within one solution, consider creating a single AssemblyInfo.gen.cs
+* If building several projects within one solution, consider creating a single AssemblyInfo.ver.cs
   file and including it in all your projects via Visual Studio's "Add as link" function.
 
-* Each developer should create a LocalNuGetFeed on their machine and set it up as a package
-  source, but don't automatically push all local builds to your LocalNuGetFeed. Write a batch
-  file to do it on demand ("push last build"). Having your own local feed allows you to test
-  packages in their downstream users without having to push to your CI server (see "Eliminating
-  the NuGet Shuffle" below).
+* Don't set version numbers or pack on every build because it slows things down. Instead,
+  create some PowerShell scripts to do this and run them manually from the Package Manager
+  Console as and when required (see Examples on github).
+
+* Each developer should create a directory on their machine to act as a drop directory
+  for nupkg files and as a NuGet feed. This allows developers to build packages locally
+  in the same way that it happens on a CI server, and is key to eliminating the "NuGet Shuffle".
+
 
 ELIMINATING THE NUGET SHUFFLE
 =============================
