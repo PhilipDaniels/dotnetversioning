@@ -23,9 +23,12 @@ COMMON USE CASES
 
 OPTIONS
 =======
-`--avpat   `- the pattern to be used to generate the AssemblyVersion attribute
-`--avcur   `- the current value of the AssemblyVersion attribute
-`--afvpat  `- the pattern to be used to generate the AssemblyFileVersion attribute
+`--avpat`  - the pattern to be used to generate the AssemblyVersion attribute
+
+`--avcur`  - the current value of the AssemblyVersion attribute
+
+`--afvpat` - the pattern to be used to generate the AssemblyFileVersion attribute
+
 --afvcur  - the current value of the AssemblyFileVersion attribute
 --aivpat  - the pattern to be used to generate the AssemblyInformationalVersion
             attribute
