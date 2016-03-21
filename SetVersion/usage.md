@@ -12,20 +12,20 @@ dotnet-setversion.exe --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --af
 					  
 ```
 
-TYPICAL USAGE
-=============
+COMMON USE CASES
+================
 
 | Task                                    | Command Line                               |
 |-----------------------------------------|------------------------------------------- |
-|Read file and print current attribute(s) | `dnv --read foo.dll --what all`            |
-|Eval pattern and print                   | `dnv --avpat "{{UtcNow}}" --what av`       |
 |Update version numbers in file           | `dnv (patterns) --write foo.cs --what all` |
+|Read file and print current attribute(s) | `dnv --read foo.dll --what all`            |
+|Evaluate pattern and print to stdout     | `dnv --avpat "{{UtcNow}}" --what av`       |
 
 OPTIONS
 =======
---avpat   - the pattern to be used to generate the AssemblyVersion attribute
---avcur   - the current value of the AssemblyVersion attribute
---afvpat  - the pattern to be used to generate the AssemblyFileVersion attribute
+`--avpat   `- the pattern to be used to generate the AssemblyVersion attribute
+`--avcur   `- the current value of the AssemblyVersion attribute
+`--afvpat  `- the pattern to be used to generate the AssemblyFileVersion attribute
 --afvcur  - the current value of the AssemblyFileVersion attribute
 --aivpat  - the pattern to be used to generate the AssemblyInformationalVersion
             attribute
