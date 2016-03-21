@@ -6,17 +6,17 @@ then write it to a file.
 SYNOPSIS
 ========
 ```
-dotnet-setversion.exe --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR 
-                      --aivpat AIVPAT --aivcur AIVCUR \
-                      --read INFILE --write OUTFILE \
-                      --what [av,afv,aiv|all] \
-					  --verbose
+dotnet-setversion.exe --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR \
+                      --aivpat AIVPAT --aivcur AIVCUR --read INFILE \
+                      --write OUTFILE --what [av,afv,aiv|all]
+					  
 ```
 
-Read file and print current attribute(s):       exe --read foo.dll --what all
-Eval pattern and print:                         exe --avpat {{UtcNow}} --what av
-Update file:                                    exe --write foo.cs --what all
-
+```
+Read file and print current attribute(s):       dnv --read foo.dll --what all
+Eval pattern and print:                         dnv --avpat {{UtcNow}} --what av
+Update file:                                    dnv --write foo.cs --what all
+```
 
 OPTIONS
 =======
