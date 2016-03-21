@@ -52,7 +52,6 @@
     <Compile Include="IFileSystem.cs" />
     <Compile Include="IPatternApplier.cs" />
     <Compile Include="ITimeProvider.cs" />
-    <Compile Include="IVariableResolver.cs" />
     <Compile Include="JsonFileProcessor.cs" />
     <Compile Include="PatternApplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,7 +12,6 @@ namespace SetVersion.Lib.Tests
     {
         public FakeTimeProvider fakeTimeProvider;
         public FakeFileSystem fakeFileSystem;
-        public IVariableResolver variableResolver;
         public PatternApplier patternApplier;
         public FileProcessorFactory factory;
         public IVCSInterrogator fakeGitInterrogator;

@@ -23,24 +23,24 @@ COMMON USE CASES
 
 OPTIONS
 =======
-`--avpat` - the pattern to be used to generate the AssemblyVersion attribute
+`--avpat` the pattern to be used to generate the AssemblyVersion attribute
 
-`--avcur` - the current value of the AssemblyVersion attribute
+`--avcur` the current value of the AssemblyVersion attribute
 
-`--afvpat` - the pattern to be used to generate the AssemblyFileVersion attribute
+`--afvpat` the pattern to be used to generate the AssemblyFileVersion attribute
 
-`--afvcur`   the current value of the AssemblyFileVersion attribute
+`--afvcur` the current value of the AssemblyFileVersion attribute
 
-`--aivpat` - the pattern to be used to generate the AssemblyInformationalVersion attribute
+`--aivpat` the pattern to be used to generate the AssemblyInformationalVersion attribute
 
-`--aivcur` - the current value of the AssemblyInformationalVersion attribute
+`--aivcur` the current value of the AssemblyInformationalVersion attribute
 
-`--read` - a file to try and read the current values and patterns from
+`--read` a file to try and read the current values and patterns from
 
-`--write` - a file to write the new version numbers to, you can specify which
-            attributes should be updated using the [av,afv,aiv] list
+`--write` a file to write the new version numbers to, you can specify which
+          attributes should be updated using the [av,afv,aiv] list
 
-`--verbose` - turn on logging to standard output
+`--verbose` turn on logging to standard output
 
 Mnemonic: "av" refers to the `AssemblyVersion` attribute, "afv" refers to the `AssemblyFileVersion`
 attribute, and "aiv" refers to the `AssemblyInformationalVersion` attribute.
@@ -53,30 +53,32 @@ Patterns should be surrounded with quotes to escape them from the shell:
 
 DESCRIPTION
 ===========
-dotnet-setversion applies a pattern `PAT` to a current version number `CUR` to produce a new,
+dnv applies a pattern `PAT` to a current version number `CUR` to produce a new,
 updated version number. `PAT` and `CUR` may be specified on the command line or extracted from
 `INFILE`, which may be of several different types. Command line parameters take priority over
 those read from the `INFILE`. There are separate options to allow independent control of the three
 assembly attributes - AssemblyVersion, AssemblyFileVersion and AssemblyInformationalVersion.
 
-Both the pattern and the current value may be read from `INFILE`. However, any values set on the
-command line take priority.
-
 Variables may be used in `PAT` to perform common operations such as incrementing existing numbers
-and substituting dates, environment variables, or the contents of files.
+and substituting dates, environment variables, or the contents of files. `CUR` is only used
+when the {{Inc}} pattern is being used to add 1 to an existing number, for other patterns
+there is no need to specify `CUR`.
 
-dotnet-setversion can use either the traditional four-part .Net version number or the three-part
-SEMVER version numbering scheme favoured by dotnet/cli. It is recommend to use SEMVER.
+dnv can use either the traditional four-part .Net version number or the three-part
+SEMVER version numbering scheme favoured by dotnet/cli. SEMVER is recommended.
 
 After the new version number(s) are determined, they are written to the `OUTFILE`. `OUTFILE`
-may be, and typically will be, the same file as `INFILE`. There is no option to write to standard
-output.
+may be, and typically will be, the same file as `INFILE`. If no `OUTFILE` is specified
+then the new version numbers are written to the standard output, this allows dnv to be
+used as a simple pattern evaluator.
 
-dotnet-setversion is designed to work with both legacy .Net applications which use Assembly
+dnv is designed to work with both legacy .Net applications which use Assembly
 attributes and the net dotnet/cli `project.json` scheme which uses just a "version" tag. In the
-former, you probably want to control each attribute independently, while for project.json it is
-sufficient to simply set the "version" to an appropriate value such as "1.2.3.4-pre20160320" and
-allow the dotnet tooling to set the attributes and nupkg package name automatically.
+former, you probably want to control each attribute independently, while for dotnet/cli projects
+you will probably also want to set the AssemblyInformationalVersion attribute in a source
+file, since it does not appear to be possible to set this attribute via project.json. If you
+set "version" to a value such as "1.2.3-pre20160320" then the new tooling will build a nupkg
+with an appropriate name.
 
 SUPPORTED FILE TYPES
 ====================
@@ -98,7 +100,7 @@ For a JSON file, the current version is determined by using a regular expression
 occurence of a "version" tag. This is designed to be compatible with the new `project.json` format
 used by NuGet 3 and the dotnet/cli toolset.
 
-When writing, normally the OUTFILE will already exist. The new version will be written in a
+When writing, normally the `OUTFILE` will already exist. The new version will be written in a
 minimal-change manner, using a regular expression to change the old version to the new. This
 should preserve any particular formatting or indentation you have in your files. If the file does
 not exist, then a new file will be created with the very minimum amount of information required.
@@ -106,7 +108,7 @@ In particular, a created JSON file will be a tiny snippet containing just a "ver
 
 PATTERN VARIABLES
 =================
-dotnet-setversion supports several variables in the pattern to allow you to perform common tasks
+dnv supports several variables in the pattern to allow you to perform common tasks
 such as incrementing existing numbers or including dates and times. The complete list of variables
 is:
 
@@ -131,9 +133,9 @@ is:
 * `{{UtcNow:fmt}}` - subsitute the current value of DateTime.UtcNow using `fmt` as the format
   string (all standard .Net format specifiers are possible).
 * `{{Same}}` - a no-op, the value in that part of the current version number is not changed.
-* `{{GitBranch}} - the current Git branch.
-* `{{GitCommit}} - the current Git commit sha (the entire sha).
-* `{{GitCommit:N}} - the first N characters of the current Git commit sha. N is an integer.
+* `{{GitBranch}}` - the current Git branch.
+* `{{GitCommit}}` - the current Git commit sha (the entire sha).
+* `{{GitCommit:N}}` - the first N characters of the current Git commit sha. N is an integer.
 * `{{MachineName}}` - the value of Environment.MachineName.
 * `{{OSVersion}}` - the value of Environment.OSVersion.
 * `{{UserName}}` - the value of Environment.UserName.
@@ -142,7 +144,7 @@ is:
 If the built-in variables are not sufficient for your needs, the ability to subsitute the value of
 an environment variable or a file provides a "get out of jail free" card which you can use to
 accomplish any versioning scheme - write a batch file or PowerShell script to generate a file with
-the desired data then use dotnet-setversion to write it into the assembly attributes.
+the desired data then use dnv to write it into the assembly attributes.
 
 VARIABLE EXAMPLES
 =================
@@ -152,7 +154,7 @@ Current     Pattern                           New         Notes
 1.10.0.1    1.{{Inc}}.0.{{Inc}}               1.11.0.2    multiple Incs are ok.
 1.10.0      1.0.%%Ver%%                       1.0.32      assuming the environment variable has the value "32"
 1.10.0      %%Ver%%                           2.0.7       assuming the environment variable has the value "2.0.7"
-1.10.0      ##c:\tenp\ver.txt##               2.0.7       assuming the file has the value "2.0.7" on its first line
+1.10.0      ##c:\tenp\ver.txt##               5.6.7       assuming the file has the value "5.6.7" on its first line
 1.10.0      %%Major%%.##Minor.txt##.{{Inc}}   3.17.1      combos are acceptable
 1.10.0      1.10.0-pre{{UtcNow}}              1.10.0-pre160320-173022     good for monotonic build numbers
 1.12.0      1.{{Same}}.7                      1.12.7
@@ -164,16 +166,16 @@ the nth day of the year is trivial to discover using Google.
 
 THE ASSEMBLY ATTRIBUTES
 =======================
-* AssemblyVersion - this is the most important attribute, as it is used by the CLR during the
+* *AssemblyVersion* - this is the most important attribute, as it is used by the CLR during the
 assembly load process. However, it is not visible in Windows' property pages for the assembly.
 
-* AssemblyFileVersion - intended to identify an individual build of the assembly. Ignored by the
+* *AssemblyFileVersion* - intended to identify an individual build of the assembly. Ignored by the
 CLR. It is displayed by Windows as "File version" on an assembly's property details page.
 
-* AssemblyInformationalVersion - an arbitrary string. Ignored by the CLR. It is displayed by
+* *AssemblyInformationalVersion* - an arbitrary string. Ignored by the CLR. It is displayed by
 Windows as the "Product version" on an assembly's property details. However, it is often too long
 to be completely seen, so a disassembly tool such as ILSpy or dotPeek should be used to view it
-(or dotnet-getversion can be used to dump it to the standard output).
+(or dnv can be used to dump it to the standard output).
 
 Modern practice is to make AssemblyVersion and AssemblyFileVersion identical, and to use SEMVER
 number versioning for them both. Use the AssemblyInformationalVersion attribute to store an
