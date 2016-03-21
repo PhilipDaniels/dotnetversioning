@@ -112,34 +112,34 @@ dnv supports several variables in the pattern to allow you to perform common tas
 such as incrementing existing numbers or including dates and times. The complete list of variables
 is:
 
-* `%%Var%%` - subtitute the value of an environment variable. The variable name is not
+* `%%Var%%` subtitute the value of an environment variable. The variable name is not
   case-sensitive.
-* `##ver.txt##` - subsitute the contents of a file. In fact, just the first line of the file is
+* `##ver.txt##` subsitute the contents of a file. In fact, just the first line of the file is
   substituted. The filename may be absolute, such as "C:\temp\ver.txt" or relative, such as
   "ver.txt". Relative filenames are relative to the current working directory.
-* `{{Inc}}` - increment a number by 1.
-* `{{Inc:Reset}}` - increment a number by 1 and reset all following numbers to zero.
-* `{{UtcNowDOY}}` - create a special date serial number from DateTime.Now in the format `YYDOY`
+* `{{Inc}}` increment a number by 1.
+* `{{Inc:Reset}}` increment a number by 1 and reset all following numbers to zero.
+* `{{UtcNowDOY}}` create a special date serial number from DateTime.Now in the format `YYDOY`
   where YY is the year number and DOY is the day-of-year, an integer in the range 1..366.
-* `{{UtcNowDOY}}` - as for UtcNowDOY, but using DateTime.UtcNow instead of DateTime.Now.
-* `{{Now}}` - subsitute the current value of DateTime.Now using the default format string of
+* `{{UtcNowDOY}}` as for UtcNowDOY, but using DateTime.UtcNow instead of DateTime.Now.
+* `{{Now}}` subsitute the current value of DateTime.Now using the default format string of
   "yyMMdd-HHmmss". This pattern is designed to be accurate to the second, yet short enough that it
   is usable in a NuGet suffix string such as "pre160322-162731"; such suffix strings must be less
   than 20 characters long.
-* `{{UtcNow}}` - substitute the current value of DateTime.UtcNow using the default format string
+* `{{UtcNow}}` substitute the current value of DateTime.UtcNow using the default format string
   of "yyMMdd-HHmmss".
-* `{{Now:fmt}}` - subsitute the current value of DateTime.Now using `fmt` as the format string
+* `{{Now:fmt}}` subsitute the current value of DateTime.Now using `fmt` as the format string
   (all standard .Net format specifiers are possible).
-* `{{UtcNow:fmt}}` - subsitute the current value of DateTime.UtcNow using `fmt` as the format
+* `{{UtcNow:fmt}}` subsitute the current value of DateTime.UtcNow using `fmt` as the format
   string (all standard .Net format specifiers are possible).
-* `{{Same}}` - a no-op, the value in that part of the current version number is not changed.
-* `{{GitBranch}}` - the current Git branch.
-* `{{GitCommit}}` - the current Git commit sha (the entire sha).
-* `{{GitCommit:N}}` - the first N characters of the current Git commit sha. N is an integer.
-* `{{MachineName}}` - the value of Environment.MachineName.
-* `{{OSVersion}}` - the value of Environment.OSVersion.
-* `{{UserName}}` - the value of Environment.UserName.
-* `{{UserDomainName}}` - the value of Environment.UserDomainName.
+* `{{Same}}` a no-op, the value in that part of the current version number is not changed.
+* `{{GitBranch}}` the current Git branch.
+* `{{GitCommit}}` the current Git commit sha (the entire sha).
+* `{{GitCommit:N}}` the first N characters of the current Git commit sha. N is an integer.
+* `{{MachineName}}` the value of Environment.MachineName.
+* `{{OSVersion}}` the value of Environment.OSVersion.
+* `{{UserName}}` the value of Environment.UserName.
+* `{{UserDomainName}}` the value of Environment.UserDomainName.
 
 If the built-in variables are not sufficient for your needs, the ability to subsitute the value of
 an environment variable or a file provides a "get out of jail free" card which you can use to
@@ -166,13 +166,13 @@ the nth day of the year is trivial to discover using Google.
 
 THE ASSEMBLY ATTRIBUTES
 =======================
-* *AssemblyVersion* - this is the most important attribute, as it is used by the CLR during the
+* **AssemblyVersion** - this is the most important attribute, as it is used by the CLR during the
 assembly load process. However, it is not visible in Windows' property pages for the assembly.
 
-* *AssemblyFileVersion* - intended to identify an individual build of the assembly. Ignored by the
+* **AssemblyFileVersion** - intended to identify an individual build of the assembly. Ignored by the
 CLR. It is displayed by Windows as "File version" on an assembly's property details page.
 
-* *AssemblyInformationalVersion* - an arbitrary string. Ignored by the CLR. It is displayed by
+* **AssemblyInformationalVersion** - an arbitrary string. Ignored by the CLR. It is displayed by
 Windows as the "Product version" on an assembly's property details. However, it is often too long
 to be completely seen, so a disassembly tool such as ILSpy or dotPeek should be used to view it
 (or dnv can be used to dump it to the standard output).
