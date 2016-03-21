@@ -57,8 +57,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)\packages\ILMerge.2.14.1208\tools\ILMerge.exe /out:%25UserProfile%25\bin\dnv.exe $(TargetPath) $(TargetDir)\SetVersion.Lib.dll
-del %25UserProfile%25\bin\dnv.pdb
+    <PostBuildEvent>$(SolutionDir)\packages\ILMerge.2.14.1208\tools\ILMerge.exe /out:$(TargetDir)\dnv.exe $(TargetPath) $(TargetDir)\SetVersion.Lib.dll
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
