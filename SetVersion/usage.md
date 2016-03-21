@@ -23,28 +23,32 @@ COMMON USE CASES
 
 OPTIONS
 =======
-`--avpat`  - the pattern to be used to generate the AssemblyVersion attribute
+`--avpat` - the pattern to be used to generate the AssemblyVersion attribute
 
-`--avcur`  - the current value of the AssemblyVersion attribute
+`--avcur` - the current value of the AssemblyVersion attribute
 
 `--afvpat` - the pattern to be used to generate the AssemblyFileVersion attribute
 
---afvcur  - the current value of the AssemblyFileVersion attribute
---aivpat  - the pattern to be used to generate the AssemblyInformationalVersion
-            attribute
---aivcur  - the current value of the AssemblyInformationalVersion attribute
---read    - a file to try and read the current values and patterns from
---write   - a file to write the new version numbers to, you can specify which
-            attributes should be updated using the [av,afv,aiv] list
---verbose - turn on logging to standard output
+`--afvcur`   the current value of the AssemblyFileVersion attribute
 
-Mnemonic: "av" refers to the AssemblyVersion attribute, "afv" refers to the AssemblyFileVersion
-attribute, and "aiv" refers to the AssemblyInformationalVersion attribute.
+`--aivpat` - the pattern to be used to generate the AssemblyInformationalVersion attribute
+
+`--aivcur` - the current value of the AssemblyInformationalVersion attribute
+
+`--read` - a file to try and read the current values and patterns from
+
+`--write` - a file to write the new version numbers to, you can specify which
+            attributes should be updated using the [av,afv,aiv] list
+
+`--verbose` - turn on logging to standard output
+
+Mnemonic: "av" refers to the `AssemblyVersion` attribute, "afv" refers to the `AssemblyFileVersion`
+attribute, and "aiv" refers to the `AssemblyInformationalVersion` attribute.
 
 Patterns should be surrounded with quotes to escape them from the shell:
 
 ```
-  dotnet-setversion --avpat "1.2.3-pre{{UtcNow}}" ...
+  dnv --avpat "1.2.3-pre{{UtcNow}}" ...
 ```
 
 DESCRIPTION
