@@ -148,7 +148,7 @@ VARIABLE EXAMPLES
 =================
 
 | Current  | Pattern                          | New Version             | Notes                                                     |
-| -------  | -------------------------------- | ----------------------- | --------------------------------------------------------- |
+| -------- | -------------------------------- | ----------------------- | --------------------------------------------------------- |
 | 1.0.0.0  | 1.2.3.4                          | 1.2.3.4                 | no variables, pattern is taken literally                  |
 | 1.10.0.1 | 1.{{Inc}}.0.{{Inc}}              | 1.11.0.2                | multiple Incs are ok.                                     |
 | 1.10.0   | 1.0.%%Ver%%                      | 1.0.32                  | assuming the environment variable has the value "32"      |
@@ -157,7 +157,7 @@ VARIABLE EXAMPLES
 | 1.10.0   | %%Major%%.##Minor.txt##.{{Inc}}  | 3.17.1                  | combos are acceptable                                     |
 | 1.10.0   | 1.10.0-pre{{UtcNow}}             | 1.10.0-pre160320-173022 | good for monotonic build numbers                          |
 | 1.12.0   | 1.{{Same}}.7                     | 1.12.7                  | no-op example                                             |
-| 1.0.0    | 1.{{UtcNowDOY}}.{{UtcNow:HHmm}}  | 1.15209.1632            | one approach to encoding the date and time                |
+| 1.0.0    | 1.{{UtcNowDOY}}.{{UtcNow:HHmm}}  | 1.16209.1632            | one approach to encoding the date and time                |
 
 Note that the minor and revision numbers may not exceed 2^16 - 1, or 65535. This precludes using a
 format such as `YYYYMMDD`, and even `YYMMDD` won't work, but the date `DOY` serial numbers will fit, and
@@ -224,18 +224,34 @@ GUIDELINES
   for nupkg files and as a NuGet feed. This allows developers to build packages locally
   in the same way that it happens on a CI server, and is key to eliminating the "NuGet Shuffle".
 
-
 ELIMINATING THE NUGET SHUFFLE
 =============================
-Determinging version numbers on both CI and local machine in a way that is compatible.
+The "NuGet Shuffle" occurs when you have a chain of packages dependent upon each other
 
-Building packages. Building a project against multiple frameworks.
+```
+   D -> C -> B -> A
+```
 
-Pushing packages to a feed.
+Here D depends on package C, which depends on package B, which in turn depends on package A.
+If a developer working on D needs to make a change in package A and the only way to build
+all the packages is using a CI server then it can be a time consuming and tedious process
+to make such changes. To avoid this
 
-Referencing packages in projects - using NuGet packages within one solution.
+* Developers need to be able to build packages locally - Solution: use a pack script
+  like those in the examples and drop the nupkg files into a local, well known directory
+  such as LOCAL_NUGET_DIR.
 
+* Developers need to be able to install packages from their local feed - Solution: setup
+  the LOCAL_NUGET_DIR as a NuGet feed.
 
+* Package version numbers need to be monotonic, so that packages that the developer
+  builds locally will supercede those available from offical NuGet feeds. Solution: use
+  a monotonically increasing version number such as "1.2.3-pre{{UtcNow}}".
+
+* As a further aid to developer productivity, incremementing version numbers and creating
+  NuGet packages should only happen on demand, it does not need to happen on every build.
+  Solution: use PowerShell scripts, such scripts can easily be run from the Package
+  Manager Console window.
 
 
 SEE ALSO
@@ -244,4 +260,5 @@ SEE ALSO
 * Semantic versioning (SEMVER) - http://semver.org/
 * Assembly attributes: http://stackoverflow.com/questions/64602/
 * Project Home on Github: https://github.com/PhilipDaniels/dotnetversioning
+* EchoArgs (handy for debugging PowerShell scripts): http://ss64.com/ps/call.html
 

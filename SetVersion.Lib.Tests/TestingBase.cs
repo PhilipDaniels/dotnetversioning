@@ -27,7 +27,6 @@ namespace SetVersion.Lib.Tests
             fakeFileSystem = new FakeFileSystem();
             factory = new FileProcessorFactory(fakeFileSystem);
             fakeGitInterrogator = new FakeGitInterrogator();
-            //variableResolver = new VariableResolver(fakeTimeProvider, fakeFileSystem, fakeGitInterrogator);
             patternApplier = new PatternApplier(fakeTimeProvider, fakeFileSystem, fakeGitInterrogator);
         }
 
