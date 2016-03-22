@@ -17,4 +17,3 @@ $aiv = $av + ", Commit {{GitCommit:12}} on branch {{GitBranch}}, at {{UtcNow:yyy
 
 & dnv $verbose --aivpat "$aiv" --write House.Basement\Properties\AssemblyInfo.ver.cs --what aiv
 & dnv $verbose --aivpat "$aiv" --write House\Properties\AssemblyInfo.ver.cs --what aiv
-

@@ -51,8 +51,6 @@ foreach ($project in $projects)
 			{
 				Write-Host "nuget push $pkg -Source $feed"
 				nuget push $pkg -Source $feed
-				Write-Host "nuget push $sym -Source $feed"
-				nuget push $sym -Source $feed
 			}
 		}
 		else
