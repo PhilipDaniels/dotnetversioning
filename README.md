@@ -47,6 +47,8 @@ Console, or from a build step on a CI system. The scripts work best if you
 have an environment variable called LOCAL_NUGET_DIR which points to a folder
 into which to drop the nupkg files.
 
+You can download in the [Zip File](dnv.zip) a copy of dnv and updeps compiled for .Net 
+framework v2 (which should work on 2 and everything after that).
 
 # Examples
 ### Example1
