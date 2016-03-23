@@ -13,11 +13,11 @@ dnv --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR \
 COMMON USE CASES
 ================
 
-| Task                                    | Command Line                               |
-|-----------------------------------------|------------------------------------------- |
-|Update version numbers in file           | `dnv (patterns) --write foo.cs --what all` |
-|Read file and print current attribute(s) | `dnv --read foo.dll --what all`            |
-|Evaluate pattern and print to stdout     | `dnv --avpat "{{UtcNow}}" --what av`       |
+| Task                                     | Command Line                               |
+|------------------------------------------|------------------------------------------- |
+| Update version numbers in file           | `dnv (patterns) --write foo.cs --what all` |
+| Read file and print current attribute(s) | `dnv --read foo.dll --what all`            |
+| Evaluate pattern and print to stdout     | `dnv --avpat "{{UtcNow}}" --what av`       |
 
 OPTIONS
 =======
@@ -165,13 +165,13 @@ the nth day of the year is trivial to discover using Google.
 
 THE ASSEMBLY ATTRIBUTES
 =======================
-* **AssemblyVersion** - this is the most important attribute, as it is used by the CLR during the
+* **AssemblyVersion** this is the most important attribute, as it is used by the CLR during the
 assembly load process. However, it is not visible in Windows' property pages for the assembly.
 
-* **AssemblyFileVersion** - intended to identify an individual build of the assembly. Ignored by the
+* **AssemblyFileVersion** intended to identify an individual build of the assembly. Ignored by the
 CLR. It is displayed by Windows as "File version" on an assembly's property details page.
 
-* **AssemblyInformationalVersion** - an arbitrary string. Ignored by the CLR. It is displayed by
+* **AssemblyInformationalVersion** an arbitrary string. Ignored by the CLR. It is displayed by
 Windows as the "Product version" on an assembly's property details. However, it is often too long
 to be completely seen, so a disassembly tool such as ILSpy or dotPeek should be used to view it
 (or dnv can be used to dump it to the standard output).
@@ -261,4 +261,3 @@ SEE ALSO
 * Assembly attributes: http://stackoverflow.com/questions/64602/
 * Project Home on Github: https://github.com/PhilipDaniels/dotnetversioning
 * EchoArgs (handy for debugging PowerShell scripts): http://ss64.com/ps/call.html
-

@@ -127,9 +127,10 @@ namespace UpdateNuGetDeps
             Console.WriteLine(@"{0} - update <dependencies> in a nuspec file.
 
 USAGE
-    {0}: -r | NUSPECFILE [PACKAGESFILE]
+    {0} -r | NUSPECFILE [PACKAGESFILE]
 
 DESCRIPTION
+===========
 Updates the <dependencies> node in a nuspec file with a list of dependent packages,
 determined by scanning the corresponding packages.config file.
 

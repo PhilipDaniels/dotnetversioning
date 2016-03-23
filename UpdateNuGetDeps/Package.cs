@@ -10,9 +10,15 @@ namespace UpdateNuGetDeps
 
         public Package(XmlNode node)
         {
-            Id = XmlUtils.GetAttr(node, "id");
-            Version = XmlUtils.GetAttr(node, "version");
-            TargetFramework = XmlUtils.GetAttr(node, "targetFramework");
+            Id = GetAttr(node, "id");
+            Version = GetAttr(node, "version");
+            TargetFramework = GetAttr(node, "targetFramework");
+        }
+
+        private static string GetAttr(XmlNode node, string attribute)
+        {
+            var attr = node.Attributes[attribute];
+            return attr == null ? null : attr.Value;
         }
     }
 }
