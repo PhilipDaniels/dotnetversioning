@@ -1,7 +1,7 @@
 ﻿NAME
 ====
-dnv - create a new version number based on an existing version number and a pattern,
-then write it to a file.
+dnv - create a new version number based on an existing version number and a pattern, then write it
+to a file.
 
 SYNOPSIS
 ========
@@ -35,8 +35,8 @@ OPTIONS
 
 `--read` a file to try and read the current values and patterns from
 
-`--write` a file to write the new version numbers to, you can specify which
-          attributes should be updated using the [av,afv,aiv] list
+`--write` a file to write the new version numbers to, you can specify which attributes should be
+          updated using the [av,afv,aiv] list
 
 `--verbose` turn on logging to standard output
 
@@ -51,32 +51,31 @@ Patterns should be surrounded with quotes to escape them from the shell:
 
 DESCRIPTION
 ===========
-dnv applies a pattern `PAT` to a current version number `CUR` to produce a new,
-updated version number. `PAT` and `CUR` may be specified on the command line or extracted from
-`INFILE`, which may be of several different types. Command line parameters take priority over
-those read from the `INFILE`. There are separate options to allow independent control of the three
-assembly attributes - AssemblyVersion, AssemblyFileVersion and AssemblyInformationalVersion.
+dnv applies a pattern `PAT` to a current version number `CUR` to produce a new, updated version
+number. `PAT` and `CUR` may be specified on the command line or extracted from `INFILE`, which may
+be of several different types. Command line parameters take priority over those read from the
+`INFILE`. There are separate options to allow independent control of the three assembly attributes
+- AssemblyVersion, AssemblyFileVersion and AssemblyInformationalVersion.
 
 Variables may be used in `PAT` to perform common operations such as incrementing existing numbers
-and substituting dates, environment variables, or the contents of files. `CUR` is only used
-when the {{Inc}} pattern is being used to add 1 to an existing number, for other patterns
-there is no need to specify `CUR`.
+and substituting dates, environment variables, or the contents of files. `CUR` is only used when
+the {{Inc}} pattern is being used to add 1 to an existing number, for other patterns there is no
+need to specify `CUR`.
 
-dnv can use either the traditional four-part .Net version number or the three-part
-SEMVER version numbering scheme favoured by dotnet/cli. SEMVER is recommended.
+dnv can use either the traditional four-part .Net version number or the three-part SEMVER version
+numbering scheme favoured by dotnet/cli. SEMVER is recommended.
 
-After the new version number(s) are determined, they are written to the `OUTFILE`. `OUTFILE`
-may be, and typically will be, the same file as `INFILE`. If no `OUTFILE` is specified
-then the new version numbers are written to the standard output, this allows dnv to be
-used as a simple pattern evaluator.
+After the new version number(s) are determined, they are written to the `OUTFILE`. `OUTFILE` may
+be, and typically will be, the same file as `INFILE`. If no `OUTFILE` is specified then the new
+version numbers are written to the standard output, this allows dnv to be used as a simple pattern
+evaluator.
 
-dnv is designed to work with both legacy .Net applications which use Assembly
-attributes and the net dotnet/cli `project.json` scheme which uses just a "version" tag. In the
-former, you probably want to control each attribute independently, while for dotnet/cli projects
-you will probably also want to set the AssemblyInformationalVersion attribute in a source
-file, since it does not appear to be possible to set this attribute via project.json. If you
-set "version" to a value such as "1.2.3-pre20160320" then the new tooling will build a nupkg
-with an appropriate name.
+dnv is designed to work with both legacy .Net applications which use Assembly attributes and the
+net dotnet/cli `project.json` scheme which uses just a "version" tag. In the former, you probably
+want to control each attribute independently, while for dotnet/cli projects you will probably also
+want to set the AssemblyInformationalVersion attribute in a source file, since it does not appear
+to be possible to set this attribute via project.json. If you set "version" to a value such as
+"1.2.3-pre20160320" then the new tooling will build a nupkg with an appropriate name.
 
 SUPPORTED FILE TYPES
 ====================
@@ -99,26 +98,25 @@ occurence of a "version" tag. This is designed to be compatible with the new `pr
 used by NuGet 3 and the dotnet/cli toolset.
 
 When writing, normally the `OUTFILE` will already exist. The new version will be written in a
-minimal-change manner, using a regular expression to change the old version to the new. This
-should preserve any particular formatting or indentation you have in your files. If the file does
-not exist, then a new file will be created with the very minimum amount of information required.
-In particular, a created JSON file will be a tiny snippet containing just a "version" tag.
+minimal-change manner, using a regular expression to change the old version to the new. This should
+preserve any particular formatting or indentation you have in your files. If the file does not
+exist, then a new file will be created with the very minimum amount of information required. In
+particular, a created JSON file will be a tiny snippet containing just a "version" tag.
 
 PATTERN VARIABLES
 =================
-dnv supports several variables in the pattern to allow you to perform common tasks
-such as incrementing existing numbers or including dates and times. The complete list of variables
-is:
+dnv supports several variables in the pattern to allow you to perform common tasks such as
+incrementing existing numbers or including dates and times. The complete list of variables is:
 
-* `%%Var%%` subtitute the value of an environment variable. The variable name is not
-  case-sensitive.
-* `##ver.txt##` subsitute the contents of a file. In fact, just the first line of the file is
+* `%%Var%%` subtitute the value of an environment variable. The variable name is not case-
+   sensitive.
+* `##ver.txt##` substitute the contents of a file. In fact, just the first line of the file is
   substituted. The filename may be absolute, such as "C:\temp\ver.txt" or relative, such as
-  "ver.txt". Relative filenames are relative to the current working directory.
+  "ver.txt", which will be resolved with respect to the current working directory.
 * `{{Inc}}` increment a number by 1.
 * `{{Inc:Reset}}` increment a number by 1 and reset all following numbers to zero.
-* `{{UtcNowDOY}}` create a special date serial number from DateTime.Now in the format `YYDOY`
-  where YY is the year number and DOY is the day-of-year, an integer in the range 1..366.
+* `{{UtcNowDOY}}` create a special date serial number from DateTime.Now in the format `YYDOY` where
+   YY is the year number and DOY is the day-of-year, an integer in the range 1..366.
 * `{{UtcNowDOY}}` as for UtcNowDOY, but using DateTime.UtcNow instead of DateTime.Now.
 * `{{Now}}` subsitute the current value of DateTime.Now using the default format string of
   "yyMMdd-HHmmss". This pattern is designed to be accurate to the second, yet short enough that it
@@ -128,8 +126,8 @@ is:
   of "yyMMdd-HHmmss".
 * `{{Now:fmt}}` subsitute the current value of DateTime.Now using `fmt` as the format string
   (all standard .Net format specifiers are possible).
-* `{{UtcNow:fmt}}` subsitute the current value of DateTime.UtcNow using `fmt` as the format
-  string (all standard .Net format specifiers are possible).
+* `{{UtcNow:fmt}}` subsitute the current value of DateTime.UtcNow using `fmt` as the format string
+  (all standard .Net format specifiers are possible).
 * `{{Same}}` a no-op, the value in that part of the current version number is not changed.
 * `{{GitBranch}}` the current Git branch.
 * `{{GitCommit}}` the current Git commit sha (the entire sha).
@@ -160,8 +158,8 @@ VARIABLE EXAMPLES
 | 1.0.0    | 1.{{UtcNowDOY}}.{{UtcNow:HHmm}}  | 1.16209.1632            | one approach to encoding the date and time                |
 
 Note that the minor and revision numbers may not exceed 2^16 - 1, or 65535. This precludes using a
-format such as `YYYYMMDD`, and even `YYMMDD` won't work, but the date `DOY` serial numbers will fit, and
-the nth day of the year is trivial to discover using Google.
+format such as `YYYYMMDD`, and even `YYMMDD` won't work, but the date `DOY` serial numbers will
+fit, and the nth day of the year is trivial to discover using Google.
 
 THE ASSEMBLY ATTRIBUTES
 =======================
@@ -190,7 +188,8 @@ GUIDELINES
 * Use AssemblyInformationalVersion to provide traceability back to the exact set of code used
   to build the project.
 
-* Pre-release builds should use a "-pre{{UtcNow}}" or similar suffix.
+* Pre-release builds should use a "-pre{{UtcNow}}" or similar suffix to generate monotonically
+  increasing build numbers.
 
 * Don't use local dates, always use UTC.
 
@@ -198,11 +197,13 @@ GUIDELINES
 
 * For legacy .Net projects, create a separate AssemblyInfo.ver.cs file with the
   following contents:
+
   ```
   [assembly: AssemblyVersion("1.0.0")]
   [assembly: AssemblyFileVersion("1.0.0")]
   [assembly: AssemblyInformationalVersion("1.0.0")]
   ```
+
 * For project.json projects, you will also need to create AssemblyInfo.ver.cs but it should
   only contain the AssemblyInformationalVersion attribute as the other two are controlled
   via the "version" tag in project.json:
@@ -261,3 +262,6 @@ SEE ALSO
 * Assembly attributes: http://stackoverflow.com/questions/64602/
 * Project Home on Github: https://github.com/PhilipDaniels/dotnetversioning
 * EchoArgs (handy for debugging PowerShell scripts): http://ss64.com/ps/call.html
+* rxrepl: a Windows command line tool for performing regex replacements in files - 
+  https://sites.google.com/site/regexreplace/
+* fnr: another Windows command line regex tool - https://findandreplace.codeplex.com/
