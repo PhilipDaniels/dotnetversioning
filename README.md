@@ -1,9 +1,9 @@
 # dnv
 Experimental tools for versioning and packing .Net projects - both traditional ones and the new
-dotnet/cli "project.json" style projects.
+.Net Core "project.json" style projects.
 
 Frustration with the CI (Bamboo) based build system we have to use at work started this experiment
-in versioning and packing projects; it was also inspired by the fact that the new dotnet/cli
+in versioning and packing projects; it was also inspired by the fact that the new .Net Core
 system can build a package directly for you by turning on a checkbox (though that has turned out
 to be irrelevant, because you don't want to pack on every build, for speed reasons).
 

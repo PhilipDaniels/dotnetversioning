@@ -63,7 +63,7 @@ the {{Inc}} pattern is being used to add 1 to an existing number, for other patt
 need to specify `CUR`.
 
 dnv can use either the traditional four-part .Net version number or the three-part SEMVER version
-numbering scheme favoured by dotnet/cli. SEMVER is recommended.
+numbering scheme favoured by .Net Core. SEMVER is recommended.
 
 After the new version number(s) are determined, they are written to the `OUTFILE`. `OUTFILE` may
 be, and typically will be, the same file as `INFILE`. If no `OUTFILE` is specified then the new
@@ -71,8 +71,8 @@ version numbers are written to the standard output, this allows dnv to be used a
 evaluator.
 
 dnv is designed to work with both legacy .Net applications which use Assembly attributes and the
-net dotnet/cli `project.json` scheme which uses just a "version" tag. In the former, you probably
-want to control each attribute independently, while for dotnet/cli projects you will probably also
+net .Net Core `project.json` scheme which uses just a "version" tag. In the former, you probably
+want to control each attribute independently, while for .Net Core projects you will probably also
 want to set the AssemblyInformationalVersion attribute in a source file, since it does not appear
 to be possible to set this attribute via project.json. If you set "version" to a value such as
 "1.2.3-pre20160320" then the new tooling will build a nupkg with an appropriate name.
@@ -95,7 +95,7 @@ For a compiled assembly, the embedded attributes are extracted by reflection.
 
 For a JSON file, the current version is determined by using a regular expression to find the first
 occurence of a "version" tag. This is designed to be compatible with the new `project.json` format
-used by NuGet 3 and the dotnet/cli toolset.
+used by NuGet 3 and the .Net Core CLI toolset.
 
 When writing, normally the `OUTFILE` will already exist. The new version will be written in a
 minimal-change manner, using a regular expression to change the old version to the new. This should
