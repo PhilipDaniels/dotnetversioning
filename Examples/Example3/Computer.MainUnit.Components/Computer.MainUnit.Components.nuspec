@@ -16,6 +16,8 @@
   <files>
     <!-- Files are relative to the nuspec file. -->
     <file src="bin\$configuration$\Computer.MainUnit.Components.dll" target="lib\Net45\Computer.MainUnit.Components.dll" />
+    <file src="bin\$configuration$\Computer.MainUnit.Components.pdb" target="lib\Net45\Computer.MainUnit.Components.pdb" />
+    <file src="bin\$configuration$\Computer.MainUnit.Components.xml" target="lib\Net45\Computer.MainUnit.Components.xml" />
     <file src="**\*.cs" target="src" exclude="bin\**\*.cs;obj\**\*.cs" />
   </files>
 </package>

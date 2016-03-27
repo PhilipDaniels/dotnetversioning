@@ -9,6 +9,6 @@ if ($bambr -ne 'master')
 	$aiv += '-pre{{UtcNow}}'
 }
 
-$aiv += ", Commit {{GitCommit:12}} on branch {{GitBranch}}, at {{UtcNow:yyyy-MM-dd HH:mm:ss}} UTC by {{UserDomainName}}\\{{UserName}} on {{MachineName}}"
+$aiv += ", Commit {{GitCommit:12}} on branch {{GitBranch}} at {{UtcNow:yyyy-MM-dd HH:mm:ss}} UTC by {{UserDomainName}}\\{{UserName}} on {{MachineName}}"
 
 & dnv --verbose --avpat "$av" --afvpat "$afv" --aivpat "$aiv" --write AssemblyInfo.ver.cs --what all

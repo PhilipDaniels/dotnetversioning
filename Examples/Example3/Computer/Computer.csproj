@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Computer.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Computer.MainUnit, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -55,7 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Computer.nuspec" />
+    <None Include="Computer.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

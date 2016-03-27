@@ -18,6 +18,8 @@
   <files>
     <!-- Files are relative to the nuspec file. -->
     <file src="bin\$configuration$\Car.dll" target="lib\Net45\Car.dll" />
+    <file src="bin\$configuration$\Car.xml" target="lib\Net45\Car.xml" />
+    <file src="bin\$configuration$\Car.pdb" target="lib\Net45\Car.pdb" />
     <file src="**\*.cs" target="src" exclude="bin\**\*.cs;obj\**\*.cs" />
   </files>
 </package>
