@@ -115,9 +115,9 @@ incrementing existing numbers or including dates and times. The complete list of
   "ver.txt", which will be resolved with respect to the current working directory.
 * `{{Inc}}` increment a number by 1.
 * `{{Inc:Reset}}` increment a number by 1 and reset all following numbers to zero.
-* `{{UtcNowDOY}}` create a special date serial number from DateTime.Now in the format `YYDOY` where
-   YY is the year number and DOY is the day-of-year, an integer in the range 1..366.
-* `{{UtcNowDOY}}` as for UtcNowDOY, but using DateTime.UtcNow instead of DateTime.Now.
+* `{{NowDOY}}` create a special date serial number from DateTime.Now in the format `YYDOY` where YY
+   is the year number and DOY is the day-of-year, an integer in the range 1..366.
+* `{{UtcNowDOY}}` as for NowDOY, but using DateTime.UtcNow instead of DateTime.Now.
 * `{{Now}}` subsitute the current value of DateTime.Now using the default format string of
   "yyMMdd-HHmmss". This pattern is designed to be accurate to the second, yet short enough that it
   is usable in a NuGet suffix string such as "pre160322-162731"; such suffix strings must be less
