@@ -104,6 +104,9 @@ namespace UpdateNuGetDeps
             dependenciesNode.RemoveAll();
             foreach (var pkg in packages)
             {
+                if (pkg.DevelopmentDependency)
+                    continue;
+
                 var dependencyNode = nuSpecDoc.CreateElement("dependency");
 
                 var idAttr = nuSpecDoc.CreateAttribute("id");
