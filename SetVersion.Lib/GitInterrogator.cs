@@ -80,21 +80,25 @@ namespace SetVersion.Lib
                     gitProcess.WaitForExit();
                     gitProcess.Close();
 
-                    string gitOutput = stdout_str.Replace("\r", "").Replace("\n", "");
+                    if (string.IsNullOrEmpty(stdout_str))
+                        stdout_str = "NOGITOUTPUT";
+                    else
+                        stdout_str = stdout_str.Replace("\r", "").Replace("\n", "");
+
                     if (locatedGitExe == null)
                     {
                         locatedGitExe = exe;
                         Logger.Log("GitInterrogator: Located git at {0}", exe);
                     }
 
-                    return gitOutput;
+                    return stdout_str;
                 }
                 catch
                 {
                 }
             }
 
-            return null;
+            return "NOGITOUTPUT";
         }
     }
 }

@@ -227,6 +227,9 @@ namespace SetVersion.Lib
 
         private static string GetCommitString(string innerVariable, string commit)
         {
+            if (string.IsNullOrEmpty(commit))
+                return null;
+
             string variable;
             string length;
             StringExtensions.SplitOnFirst(innerVariable, ':', out variable, out length);
@@ -234,6 +237,8 @@ namespace SetVersion.Lib
                 return commit;
 
             int len = Convert.ToInt32(length);
+            if (len > commit.Length)
+                len = commit.Length;
             return commit.Substring(0, len);
         }
     }
