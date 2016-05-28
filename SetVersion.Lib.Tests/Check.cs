@@ -40,7 +40,7 @@ namespace SetVersion.Lib.Tests
             Assert.Equal(lhs.Outfile, rhs.Outfile);
             Assert.Equal(lhs.ShowHelp, rhs.ShowHelp);
             Assert.Equal(lhs.ErrorMessage, rhs.ErrorMessage);
-            Assert.Equal(lhs.Verbose, rhs.Verbose);
+            Assert.Equal(lhs.Verbosity, rhs.Verbosity);
             VersionInfosEqual(lhs.VersionInfo, rhs.VersionInfo);
         }
     }

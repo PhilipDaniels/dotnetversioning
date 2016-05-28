@@ -18,9 +18,9 @@
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Was the --verbose flag specified? Turns on logging.
+        /// Verbosity to be applied.
         /// </summary>
-        public bool Verbose { get; set; }
+        public Verbosity Verbosity { get; set; }
 
         /// <summary>
         /// The name of the file to read existing version numbers from.

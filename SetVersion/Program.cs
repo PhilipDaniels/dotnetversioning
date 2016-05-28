@@ -22,7 +22,7 @@ namespace SetVersion
                 Environment.Exit(1);
             }
                 
-            Logger.Verbose = parsedArgs.Verbose;
+            Logger.Verbosity = parsedArgs.Verbosity;
 
             var fs = new RealFileSystem();
             var tp = new DefaultTimeProvider();
@@ -34,7 +34,7 @@ namespace SetVersion
             engine.Execute(parsedArgs);
 
             sw.Stop();
-            Logger.Log("{0}: completed in {1} msec.", ExeName, sw.ElapsedMilliseconds);
+            Logger.LogDoneMessage(sw.ElapsedMilliseconds);
         }
 
         private static void ShowMiniHelp(SetVersionCommandLineArguments parsedArgs)

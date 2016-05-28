@@ -77,7 +77,7 @@ namespace SetVersion.Lib.Tests
                     Expected = new SetVersionCommandLineArguments() { VersionInfo = new VersionInfo() { AVPat = "1.2.3" }, ErrorMessage = "Invalid argument combination" }
                 };
 
-               // "No what".
+                // "No what".
                 yield return new InputData()
                 {
                     Args = new string[] { "--avpat", "1.2.3", "--avcur", "4.5.6", "--write", "foo.cs", "--read", "bar.cs" },
@@ -103,7 +103,7 @@ namespace SetVersion.Lib.Tests
                     {
                         Infile = "bar.cs",
                         Outfile = "foo.cs",
-                        Verbose = true,
+                        Verbosity = Verbosity.Verbose,
                         VersionInfo = new VersionInfo()
                         {
                             AVPat = "1.2.3",
@@ -117,7 +117,7 @@ namespace SetVersion.Lib.Tests
                 // The full set. Use "all" for what to write.
                 yield return new InputData()
                 {
-                    Args = new string[] { "--avpat", "1.2.3", "--read", "bar.cs", "--avcur", "4.5.6", "--write", "foo.cs", "--what", "all", "--verbose",
+                    Args = new string[] { "--avpat", "1.2.3", "--read", "bar.cs", "--avcur", "4.5.6", "--write", "foo.cs", "--what", "all", "--quiet",
                         "--afvpat", "1.0.0", "--afvcur", "2.0.0",
                         "--aivpat", "3.0.0", "--aivcur", "4.0.0"
                     },
@@ -125,7 +125,7 @@ namespace SetVersion.Lib.Tests
                     {
                         Infile = "bar.cs",
                         Outfile = "foo.cs",
-                        Verbose = true,
+                        Verbosity = Verbosity.Quiet,
                         VersionInfo = new VersionInfo()
                         {
                             AVPat = "1.2.3",

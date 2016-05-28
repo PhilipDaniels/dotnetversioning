@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace SetVersion.Lib
 {
@@ -8,10 +9,9 @@ namespace SetVersion.Lib
     public static class Logger
     {
         /// <summary>
-        /// The flag which controls whether any logging is done. If false,
-        /// no output is produced by any of the logging methods.
+        /// The flag which controls whether any logging is done.
         /// </summary>
-        public static bool Verbose { get; set; }
+        public static Verbosity Verbosity { get; set; }
 
         /// <summary>
         /// Logs the specified message.
@@ -19,7 +19,7 @@ namespace SetVersion.Lib
         /// <param name="message">The message.</param>
         public static void Log(string message)
         {
-            if (Verbose)
+            if (Verbosity == Verbosity.Verbose)
             {
                 Console.WriteLine(message);
             }
@@ -32,7 +32,7 @@ namespace SetVersion.Lib
         /// <param name="args">The arguments.</param>
         public static void Log(string format, params object[] args)
         {
-            if (Verbose)
+            if (Verbosity == Verbosity.Verbose)
             {
                 Console.WriteLine(format, args);
             }
@@ -45,9 +45,9 @@ namespace SetVersion.Lib
         /// <param name="versionInfo">The version information.</param>
         public static void LogCurrentInfo(string prefix, VersionInfo versionInfo)
         {
-            if (Verbose)
+            if (Verbosity == Verbosity.Verbose)
             {
-                Log("{0}: Current values are av = \"{1}\", afv = \"{2}\", aiv = \"{3}\"",
+                Console.WriteLine("{0}: Current values are av = \"{1}\", afv = \"{2}\", aiv = \"{3}\"",
                     prefix,
                     versionInfo.AVCur,
                     versionInfo.AFVCur,
@@ -62,9 +62,9 @@ namespace SetVersion.Lib
         /// <param name="versionInfo">The version information.</param>
         public static void LogPatternInfo(string prefix, VersionInfo versionInfo)
         {
-            if (Verbose)
+            if (Verbosity == Verbosity.Verbose)
             {
-                Log("{0}: Patterns are avpat = \"{1}\", afvpat = \"{2}\", aivpat = \"{3}\"",
+                Console.WriteLine("{0}: Patterns are avpat = \"{1}\", afvpat = \"{2}\", aivpat = \"{3}\"",
                     prefix,
                     versionInfo.AVPat,
                     versionInfo.AFVPat,
@@ -73,19 +73,45 @@ namespace SetVersion.Lib
         }
 
         /// <summary>
-        /// Logs the new version number information from the VersionInfo structure.
+        /// Logs the new version number information from the VersionInfo structure, but only if
+        /// it exists and there was an outfile.
         /// </summary>
         /// <param name="prefix">The message prefix.</param>
         /// <param name="versionInfo">The version information.</param>
-        public static void LogNewVersionInfo(string prefix, VersionInfo versionInfo)
+        public static void LogNewVersionInfo(string prefix, VersionInfo versionInfo, string outFile)
         {
-            if (Verbose)
+            outFile = outFile ?? string.Empty;
+
+            if ((Verbosity == Verbosity.Verbose || Verbosity == Verbosity.Normal) &&
+               (!string.IsNullOrEmpty(versionInfo.AVNew) || !string.IsNullOrEmpty(versionInfo.AFVNew) || !string.IsNullOrEmpty(versionInfo.AFVNew)) &&
+               (!string.IsNullOrEmpty(outFile)))
             {
-                Log("{0}: New version numbers are avnew = \"{1}\", afvnew = \"{2}\", aivnew = \"{3}\"",
-                    prefix,
-                    versionInfo.AVNew,
-                    versionInfo.AFVNew,
-                    versionInfo.AIVNew);
+                Console.WriteLine("{0}: Wrote AV[\"{1}\"], AFV[\"{2}\"], AIV[\"{3}\"] to {4}",
+                        ExeName,
+                        versionInfo.AVNew,
+                        versionInfo.AFVNew,
+                        versionInfo.AIVNew,
+                        outFile);
+            }
+        }
+
+        /// <summary>
+        /// Logs the done message.
+        /// </summary>
+        /// <param name="msec">The msec.</param>
+        public static void LogDoneMessage(long msec)
+        {
+            if (Verbosity == Verbosity.Verbose)
+            {
+                Console.WriteLine("{0}: Completed in {1} msec.", ExeName, msec);
+            }
+        }
+
+        private static string ExeName
+        {
+            get
+            {
+                return Assembly.GetEntryAssembly().ManifestModule.Name;
             }
         }
     }

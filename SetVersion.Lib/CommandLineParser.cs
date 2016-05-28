@@ -19,7 +19,8 @@ namespace SetVersion.Lib
             var result = new SetVersionCommandLineArguments()
             {
                 ErrorMessage = DefaultError,
-                VersionInfo = new VersionInfo()
+                VersionInfo = new VersionInfo(),
+                Verbosity = Verbosity.Normal
             };
 
             if (args == null || args.Length == 0)
@@ -41,7 +42,11 @@ namespace SetVersion.Lib
 
                 if (IsArg("--verbose", arg))
                 {
-                    result.Verbose = true;
+                    result.Verbosity = Verbosity.Verbose;
+                }
+                else if (IsArg("--quiet", arg))
+                {
+                    result.Verbosity = Verbosity.Quiet;
                 }
                 else if (IsArg("--avpat", arg))
                 {

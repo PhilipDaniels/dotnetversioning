@@ -64,6 +64,7 @@
     <Compile Include="Val.cs" />
     <Compile Include="ValidatedNotNullAttribute.cs" />
     <Compile Include="VCSInfo.cs" />
+    <Compile Include="Verbosity.cs" />
     <Compile Include="VersionInfo.cs" />
     <Compile Include="VersionString.cs" />
     <Compile Include="VisualBasicFileProcessor.cs" />

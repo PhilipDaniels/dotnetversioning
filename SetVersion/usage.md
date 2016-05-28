@@ -6,7 +6,7 @@ to a file.
 SYNOPSIS
 ========
 ```
-dnv --verbose --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR \
+dnv [ --verbose | --quiet ] --avpat AVPAT --avcur AVCUR --afvpat AFVPAT --afvcur AFVCUR \
     --aivpat AIVPAT --aivcur AIVCUR --read INFILE --write OUTFILE --what [av,afv,aiv|all]			  
 ```
 
@@ -38,7 +38,9 @@ OPTIONS
 `--write` a file to write the new version numbers to, you can specify which attributes should be
           updated using the [av,afv,aiv] list
 
-`--verbose` turn on logging to standard output
+`--verbose` turn on verbose logging to standard output
+
+`--quiet` suppress all logging
 
 Mnemonic: "av" refers to the `AssemblyVersion` attribute, "afv" refers to the `AssemblyFileVersion`
 attribute, and "aiv" refers to the `AssemblyInformationalVersion` attribute.

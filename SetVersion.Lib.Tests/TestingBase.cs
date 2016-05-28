@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection;
 using SetVersion.Lib.Tests.Utils;
 
 namespace SetVersion.Lib.Tests
@@ -28,6 +29,24 @@ namespace SetVersion.Lib.Tests
             factory = new FileProcessorFactory(fakeFileSystem);
             fakeGitInterrogator = new FakeGitInterrogator();
             patternApplier = new PatternApplier(fakeTimeProvider, fakeFileSystem, fakeGitInterrogator);
+
+            // This is needed because some methods refer to it. They will fail under unit
+            // testing, because the entry assembly is not set.
+            SetAsEntryAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        /// <summary>
+        /// Sets an assembly to be the entry assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        public static void SetAsEntryAssembly(Assembly assembly)
+        {
+            AppDomainManager appDomainManager = new AppDomainManager();
+            FieldInfo field = appDomainManager.GetType().GetField("m_entryAssembly", BindingFlags.Instance | BindingFlags.NonPublic);
+            field.SetValue(appDomainManager, assembly);
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            FieldInfo field2 = currentDomain.GetType().GetField("_domainManager", BindingFlags.Instance | BindingFlags.NonPublic);
+            field2.SetValue(currentDomain, appDomainManager);
         }
 
         public string ExpectedNowDOY

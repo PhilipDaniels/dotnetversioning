@@ -55,6 +55,7 @@ namespace SetVersion.Lib
             Logger.LogPatternInfo("SetVersionEngine - effective", vi);
 
             CalculateNewVersions(vi);
+            Logger.LogNewVersionInfo("New versions: ", vi, parsedArgs.Outfile);
 
             // Do we have an output file? If so update it.
             if (parsedArgs.Outfile != null)
